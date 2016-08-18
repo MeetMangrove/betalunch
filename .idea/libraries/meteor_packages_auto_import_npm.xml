@@ -163,6 +163,7 @@
         <item url="file://$USER_HOME$/.meteor/packages/ecmascript-runtime/0.3.14/npm/node_modules/core-js/fn/math/fround.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ecmascript-runtime/0.3.14/npm/node_modules/core-js/fn/math/expm1.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ecmascript-runtime/0.3.14/npm/node_modules/core-js/fn/math/imul.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/cfs_filesystem/0.0.0/npm/node_modules/mkdirp/index.js" />
         <item url="file://$USER_HOME$/.meteor/packages/cfs_gridfs/0.0.0/npm/node_modules/gridfs-stream/lib/readstream.js" />
         <item url="file://$USER_HOME$/.meteor/packages/cfs_gridfs/0.0.0/npm/node_modules/gridfs-stream/lib/index.js" />
         <item url="file://$USER_HOME$/.meteor/packages/cfs_gridfs/0.0.0/npm/node_modules/gridfs-stream/lib/writestream.js" />
@@ -5144,6 +5145,7 @@
       <root url="file://$USER_HOME$/.meteor/packages/ecmascript-runtime/0.3.14/npm/node_modules/core-js/fn/math/fround.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ecmascript-runtime/0.3.14/npm/node_modules/core-js/fn/math/expm1.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ecmascript-runtime/0.3.14/npm/node_modules/core-js/fn/math/imul.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/cfs_filesystem/0.0.0/npm/node_modules/mkdirp/index.js" />
       <root url="file://$USER_HOME$/.meteor/packages/cfs_gridfs/0.0.0/npm/node_modules/gridfs-stream/lib/readstream.js" />
       <root url="file://$USER_HOME$/.meteor/packages/cfs_gridfs/0.0.0/npm/node_modules/gridfs-stream/lib/index.js" />
       <root url="file://$USER_HOME$/.meteor/packages/cfs_gridfs/0.0.0/npm/node_modules/gridfs-stream/lib/writestream.js" />

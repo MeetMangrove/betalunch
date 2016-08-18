@@ -24,5 +24,6 @@ aldeed:collection2
 aldeed:simple-schema
 aldeed:autoform-select2
 cfs:autoform
-cfs:gridfs
 yogiben:autoform-file
+cfs:filesystem
+cfs:gridfs

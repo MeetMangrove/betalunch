@@ -114,6 +114,7 @@
         <item url="file://$USER_HOME$/.meteor/packages/modules/0.7.6/web.browser/stubs.js" />
         <item url="file://$USER_HOME$/.meteor/packages/htmljs/1.0.10/web.browser/visitors.js" />
         <item url="file://$USER_HOME$/.meteor/packages/modules/0.7.6/web.browser/process.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/cfs_filesystem/0.0.0/web.browser/packages/cfs:filesystem.js" />
         <item url="file://$USER_HOME$/.meteor/packages/modules/0.7.6/web.browser/install-packages.js" />
         <item url="file://$USER_HOME$/.meteor/packages/id-map/1.0.8/web.browser/id-map.js" />
         <item url="file://$USER_HOME$/.meteor/packages/cfs_autoform/2.2.1/web.browser/packages/cfs_autoform/cfs-autoform.css" />
@@ -331,6 +332,7 @@
       <root url="file://$USER_HOME$/.meteor/packages/modules/0.7.6/web.browser/stubs.js" />
       <root url="file://$USER_HOME$/.meteor/packages/htmljs/1.0.10/web.browser/visitors.js" />
       <root url="file://$USER_HOME$/.meteor/packages/modules/0.7.6/web.browser/process.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/cfs_filesystem/0.0.0/web.browser/packages/cfs:filesystem.js" />
       <root url="file://$USER_HOME$/.meteor/packages/modules/0.7.6/web.browser/install-packages.js" />
       <root url="file://$USER_HOME$/.meteor/packages/id-map/1.0.8/web.browser/id-map.js" />
       <root url="file://$USER_HOME$/.meteor/packages/cfs_autoform/2.2.1/web.browser/packages/cfs_autoform/cfs-autoform.css" />

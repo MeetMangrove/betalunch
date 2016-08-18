@@ -20,3 +20,16 @@ Template.form.helpers({
 Template.form.events({
 
 });
+
+
+AutoForm.addHooks(
+    ["insertRegisteredForm"],
+    {
+      before   : {
+        method: CfsAutoForm.Hooks.beforeInsert
+      },
+      after    : {
+        method: CfsAutoForm.Hooks.afterInsert
+      }
+    }
+);

@@ -10,13 +10,17 @@ const Files = new FS.Collection("files", {
 });
 
 Files.allow({
-    download: function () {
+    insert() {
+      return true;
+    },
+    update() {
+        return true;
+    },
+    download() {
         return true;
     },
     fetch: null
 });
-
-
 
 const Registered = new Mongo.Collection('registered');
 const Schema = new SimpleSchema({
@@ -32,16 +36,17 @@ const Schema = new SimpleSchema({
         type: String,
         optional: false
     },
-    /*picture: {
+    picture: {
         type: String,
         autoform: {
+            template: "bootstrap3",
             afFieldInput: {
                 type: "cfs-file",
                 collection: "files"
             }
         },
         optional: false
-    },*/
+    },
     week: {
         type: [String],
         allowedValues: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
