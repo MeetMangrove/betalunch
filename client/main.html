@@ -1,0 +1,22 @@
+<head>
+    <title>Betahaus Pairing</title>
+</head>
+
+<body>
+    <div class="center-align">
+        <h1>Welcome to Betahaus !</h1>
+        {{> form}}
+    </div>
+</body>
+
+<template name="form">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 offset-m3 m6 offset-l4 l4">
+                {{> quickForm collection=registered id="insertRegisteredForm" type="insert"}}
+            </div>
+        </div>
+    </div>
+</template>
+
+
