@@ -28,3 +28,4 @@ yogiben:autoform-file
 cfs:filesystem
 cfs:gridfs
 session
+email

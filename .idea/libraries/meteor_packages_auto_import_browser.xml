@@ -42,6 +42,7 @@
         <item url="file://$USER_HOME$/.meteor/packages/allow-deny/1.0.5/web.browser/allow-deny.js" />
         <item url="file://$USER_HOME$/.meteor/packages/babel-runtime/0.1.11/web.browser/babel-runtime.js" />
         <item url="file://$USER_HOME$/.meteor/packages/aldeed_schema-index/1.0.1/web.browser/lib/indexing.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/session/1.0.5/web.browser/packages/session.js" />
         <item url="file://$USER_HOME$/.meteor/packages/aldeed_simple-schema/1.5.3/web.browser/simple-schema-context.js" />
         <item url="file://$USER_HOME$/.meteor/packages/aldeed_simple-schema/1.5.3/web.browser/mongo-object.js" />
         <item url="file://$USER_HOME$/.meteor/packages/aldeed_simple-schema/1.5.3/web.browser/simple-schema-validation.js" />
@@ -260,6 +261,7 @@
       <root url="file://$USER_HOME$/.meteor/packages/allow-deny/1.0.5/web.browser/allow-deny.js" />
       <root url="file://$USER_HOME$/.meteor/packages/babel-runtime/0.1.11/web.browser/babel-runtime.js" />
       <root url="file://$USER_HOME$/.meteor/packages/aldeed_schema-index/1.0.1/web.browser/lib/indexing.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/session/1.0.5/web.browser/packages/session.js" />
       <root url="file://$USER_HOME$/.meteor/packages/aldeed_simple-schema/1.5.3/web.browser/simple-schema-context.js" />
       <root url="file://$USER_HOME$/.meteor/packages/aldeed_simple-schema/1.5.3/web.browser/mongo-object.js" />
       <root url="file://$USER_HOME$/.meteor/packages/aldeed_simple-schema/1.5.3/web.browser/simple-schema-validation.js" />
