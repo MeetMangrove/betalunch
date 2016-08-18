@@ -27,3 +27,4 @@ cfs:autoform
 yogiben:autoform-file
 cfs:filesystem
 cfs:gridfs
+session

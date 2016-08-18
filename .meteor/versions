@@ -91,6 +91,7 @@ reactive-var@1.0.10
 reload@1.1.10
 retry@1.0.8
 routepolicy@1.0.11
+session@1.0.5
 spacebars@1.0.12
 spacebars-compiler@1.0.12
 standard-minifier-css@1.2.0
