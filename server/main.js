@@ -5,7 +5,7 @@ import { Email } from 'meteor/email';
 import { mjml2html } from 'mjml';
 import { Random } from 'meteor/random';
 import pull from 'lodash/pull';
-import { Registered } from '../both/collections';
+import { Registered, Files } from '../both/collections';
 
 const week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
@@ -104,11 +104,12 @@ Meteor.startup(() => {
                     pull(listToPaired, oddPeople);
                 }
                 const length = listToPaired.length;
-                for(let i = 0; i < length ; i++) {
+                for(let i = 0; i < length / 2 ; i++) {
                     const peopleOne = Random.choice(listToPaired);
                     pull(listToPaired, peopleOne);
                     const peopleTwo = Random.choice(listToPaired);
                     pull(listToPaired, peopleTwo);
+
                     if(i + 1 === length && oddPeople){
                         const htmlOutput = mjml2html(`
                         <mjml>
@@ -116,11 +117,40 @@ Meteor.startup(() => {
                                 <mj-container>
                                     <mj-section>
                                         <mj-column>
-                                            <mj-text>
-                                                Congrate ${peopleOne.name} & ${peopleTwo.name} & ${oddPeople.name}, you are paired !<br/>                                          
-                                                Phone of ${peopleOne.name}: ${peopleOne.number}<br/>
-                                                Phone of ${peopleTwo.name}: ${peopleTwo.number}<br/>
-                                                Phone of ${oddPeople.name}: ${oddPeople.number}
+                                            <mj-text font-size="24px" align="center">
+                                                Congratulations, you are paired !
+                                            </mj-text>
+                                        </mj-column>
+                                      </mj-section>
+                                      <mj-section>
+                                        <mj-column>
+                                         <mj-image width="150" border-radius="50%"src="https://betahaus-pairing.scalingo.io/${Files.findOne({_id: peopleOne.picture}).url()}" />
+                                         <mj-text font-size="20px" align="center">
+                                                ${peopleOne.name}
+                                            </mj-text>
+                                         <mj-text font-size="18px" align="center" font-style="italic"
+                                         color="#9E9E9E">
+                                                ${peopleOne.number}
+                                            </mj-text>
+                                        </mj-column>
+                                        <mj-column>
+                                         <mj-image width="150" border-radius="50%" src="https://betahaus-pairing.scalingo.io/${Files.findOne({_id: peopleTwo.picture}).url()}" />
+                                         <mj-text font-size="20px" align="center">
+                                                ${peopleTwo.name}
+                                            </mj-text>
+                                         <mj-text font-size="18px" align="center" font-style="italic"
+                                         color="#9E9E9E">
+                                                ${peopleTwo.number}
+                                            </mj-text>
+                                        </mj-column>
+                                        <mj-column>
+                                         <mj-image width="150" border-radius="50%" src="https://betahaus-pairing.scalingo.io/${Files.findOne({_id: oddPeople.picture}).url()}" />
+                                         <mj-text font-size="20px" align="center">
+                                                ${oddPeople.name}
+                                            </mj-text>
+                                         <mj-text font-size="18px" align="center" font-style="italic"
+                                         color="#9E9E9E">
+                                                ${oddPeople.number}
                                             </mj-text>
                                         </mj-column>
                                     </mj-section>
@@ -141,10 +171,30 @@ Meteor.startup(() => {
                                 <mj-container>
                                     <mj-section>
                                         <mj-column>
-                                            <mj-text>
-                                                Congrate ${peopleOne.name} & ${peopleTwo.name}, you are paired !<br/>                                          
-                                                Phone of ${peopleOne.name}: ${peopleOne.number}<br/>
-                                                Phone of ${peopleTwo.name}: ${peopleTwo.number}
+                                            <mj-text font-size="24px" align="center">
+                                                Congratulations, you are paired !
+                                            </mj-text>
+                                        </mj-column>
+                                      </mj-section>
+                                      <mj-section>
+                                        <mj-column>
+                                         <mj-image width="150" border-radius="50%"src="https://betahaus-pairing.scalingo.io/${Files.findOne({_id: peopleOne.picture}).url()}" />
+                                         <mj-text font-size="20px" align="center">
+                                                ${peopleOne.name}
+                                            </mj-text>
+                                         <mj-text font-size="18px" align="center" font-style="italic"
+                                         color="#9E9E9E">
+                                                ${peopleOne.number}
+                                            </mj-text>
+                                        </mj-column>
+                                        <mj-column>
+                                         <mj-image width="150" border-radius="50%" src="https://betahaus-pairing.scalingo.io/${Files.findOne({_id: peopleTwo.picture}).url()}" />
+                                         <mj-text font-size="20px" align="center">
+                                                ${peopleTwo.name}
+                                            </mj-text>
+                                         <mj-text font-size="18px" align="center" font-style="italic"
+                                         color="#9E9E9E">
+                                                ${peopleTwo.number}
                                             </mj-text>
                                         </mj-column>
                                     </mj-section>
