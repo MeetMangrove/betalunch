@@ -20,7 +20,7 @@ Meteor.startup(() => {
             if(moment().hours() === 0){
                 Registered.update({}, {$set: {isPairedToday: false}});
             }
-            if(moment().hours() === 9){
+            if(moment().hours() === 9 && moment().day() < 6){
                 Registered.find({}).fetch().forEach((register) => {
                     const htmlOutput = mjml2html(`
                         <mjml>
@@ -41,17 +41,17 @@ Meteor.startup(() => {
                                                    font-family="Helvetica" 
                                                    background-color="#8BC34A" 
                                                    color="white"
-                                                   href="https://betahaus-pairing.scalingo.io/accept/${register._id}">
+                                                   href="http://localhost:3000/accept/${register._id}">
                                                       Yes
                                                 </mj-button>
                                             </mj-column>
                                             <mj-column>
                                                 <mj-button 
-                                                           font-family="Helvetica" 
-                                                           background-color="#FFC107" 
-                                                           color="white"
-                                                           href="https://betahaus-pairing.scalingo.io/reject/${register._id}">
-                                                              No
+                                                   font-family="Helvetica" 
+                                                   background-color="#FFC107" 
+                                                   color="white"
+                                                   href="http://localhost:3000/reject/${register._id}">
+                                                      No
                                                 </mj-button>
                                             </mj-column>
                                         </mj-group>
@@ -61,7 +61,7 @@ Meteor.startup(() => {
                                                    font-family="Helvetica" 
                                                    background-color="#FF9800" 
                                                    color="white"
-                                                   href="https://betahaus-pairing.scalingo.io/rejectweek/${register._id}">
+                                                   href="http://localhost:3000/rejectweek/${register._id}">
                                                       I don't want a pairing this week.
                                                     </mj-button>
                                             </mj-column>
@@ -70,7 +70,7 @@ Meteor.startup(() => {
                                                    font-family="Helvetica" 
                                                    background-color="#FF5722" 
                                                    color="white"
-                                                   href="https://betahaus-pairing.scalingo.io/unsubscribe/${register._id}">
+                                                   href="http://localhost:3000/unsubscribe/${register._id}">
                                                       I want to be unsubscribed.
                                                  </mj-button>
                                             </mj-column>
@@ -88,12 +88,14 @@ Meteor.startup(() => {
                     });
                 });
             }
-            if(moment().hours() === 12){
+            if(moment().hours() === 12 && moment().day() < 6){
                 let listToPaired = Registered.find({
                     isPairedToday: true,
                     isPairedWeek: true,
                     week: {
-                        $elemMatch: week[moment().day()]
+                        $elemMatch: {
+                            $eq: week[moment().day() - 1]
+                        }
                     }
                 }).fetch();
                 let oddPeople = null;
@@ -104,8 +106,9 @@ Meteor.startup(() => {
                 const length = listToPaired.length;
                 for(let i = 0; i < length ; i++) {
                     const peopleOne = Random.choice(listToPaired);
+                    pull(listToPaired, peopleOne);
                     const peopleTwo = Random.choice(listToPaired);
-                    pull(listToPaired, peopleOne, peopleTwo);
+                    pull(listToPaired, peopleTwo);
                     if(i + 1 === length && oddPeople){
                         const htmlOutput = mjml2html(`
                         <mjml>
