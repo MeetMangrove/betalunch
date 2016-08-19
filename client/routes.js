@@ -28,10 +28,17 @@ FlowRouter.route('/reject/:_id', {
     }
 });
 
-FlowRouter.route('/rejectweek/:_id', {
-    name: 'rejectweek',
+FlowRouter.route('/change_pairing_days/:_id', {
+    name: 'change_pairing_days',
     action(){
-        BlazeLayout.render('main', { main: 'rejectweek' });
+        BlazeLayout.render('main', { main: 'change_pairing_days' });
+    }
+});
+
+FlowRouter.route('/reject_week/:_id', {
+    name: 'reject_week',
+    action(){
+        BlazeLayout.render('main', { main: 'reject_week' });
     }
 });
 

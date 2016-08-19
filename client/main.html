@@ -33,10 +33,16 @@
     </p>
 </template>
 
-<template name="rejectweek">
+<template name="reject_week">
     <p class="flow-text">
         As you want, you're not gonna be paired this week. :'(
     </p>
+</template>
+
+<template name="change_pairing_days">
+    {{#autoform collection=registered id="updatePairingDays" type="update" doc=currentUser}}
+        {{> afQuickField name='week'}}
+    {{/autoform}}
 </template>
 
 <template name="unsubscribe">

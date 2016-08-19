@@ -9,6 +9,8 @@ import { Registered, Files } from '../both/collections';
 
 const week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
+
+
 Meteor.startup(() => {
     process.env.MAIL_URL = 'smtp://thomaster:mangrove2016@smtp.sendgrid.net:587';
 
@@ -20,7 +22,7 @@ Meteor.startup(() => {
             if(moment().hours() === 0){
                 Registered.update({}, {$set: {isPairedToday: false}});
             }
-            if(moment().hours() === 9 && moment().day() < 6){
+            if(moment().hours() === 0 && moment().day() < 6){
                 Registered.find({}).fetch().forEach((register) => {
                     const htmlOutput = mjml2html(`
                         <mjml>
@@ -28,9 +30,10 @@ Meteor.startup(() => {
                                 <mj-container>
                                     <mj-section>
                                         <mj-column>
-                                            <mj-text>
-                                                Welcome to Betahaus ${register.name} !<br/>                                  
-                                                Do you want a pairing today ?
+                                          <mj-image width="150" border-radius="50%"src="${url}${Files.findOne({_id: register.picture}).url()}" />           
+                                            <mj-text align="center" font-size="24px">
+                                                Good morning Thomas Jeanneau !<br/>  
+                                                Do you want to be paired today ?
                                             </mj-text>
                                         </mj-column>
                                     </mj-section>
@@ -41,36 +44,50 @@ Meteor.startup(() => {
                                                    font-family="Helvetica" 
                                                    background-color="#8BC34A" 
                                                    color="white"
-                                                   href="http://localhost:3000/accept/${register._id}">
+                                                   padding-left="200px"
+                                                   href="${url}/accept/${register._id}">
                                                       Yes
                                                 </mj-button>
                                             </mj-column>
                                             <mj-column>
                                                 <mj-button 
                                                    font-family="Helvetica" 
-                                                   background-color="#FFC107" 
+                                                   background-color="#FF5722" 
                                                    color="white"
-                                                   href="http://localhost:3000/reject/${register._id}">
+                                                   padding-right="200px"
+                                                   href="${url}/reject/${register._id}">
                                                       No
                                                 </mj-button>
                                             </mj-column>
                                         </mj-group>
+                                      </mj-section>
+                                     <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey" />
+                                      <mj-section>
                                         <mj-group>
                                             <mj-column>
                                                 <mj-button 
                                                    font-family="Helvetica" 
-                                                   background-color="#FF9800" 
+                                                   background-color="#039be5" 
                                                    color="white"
-                                                   href="http://localhost:3000/rejectweek/${register._id}">
+                                                   href="${url}/reject_week/${register._id}">
                                                       I don't want a pairing this week.
                                                     </mj-button>
+                                            </mj-column>
+                                             <mj-column>
+                                                 <mj-button 
+                                                   font-family="Helvetica" 
+                                                   background-color="#039be5" 
+                                                   color="white"
+                                                   href="${url}/change_pairing_days/${register._id}">
+                                                      I want to change my pairing days.
+                                                 </mj-button>
                                             </mj-column>
                                             <mj-column>
                                                  <mj-button 
                                                    font-family="Helvetica" 
-                                                   background-color="#FF5722" 
+                                                   background-color="#039be5" 
                                                    color="white"
-                                                   href="http://localhost:3000/unsubscribe/${register._id}">
+                                                   href="${url}/unsubscribe/${register._id}">
                                                       I want to be unsubscribed.
                                                  </mj-button>
                                             </mj-column>
@@ -88,7 +105,7 @@ Meteor.startup(() => {
                     });
                 });
             }
-            if(moment().hours() === 12 && moment().day() < 6){
+            if(moment().hours() === 0 && moment().day() < 6){
                 let listToPaired = Registered.find({
                     isPairedToday: true,
                     isPairedWeek: true,
@@ -104,12 +121,12 @@ Meteor.startup(() => {
                     pull(listToPaired, oddPeople);
                 }
                 const length = listToPaired.length;
+                const url = Meteor.settings.url;
                 for(let i = 0; i < length / 2 ; i++) {
                     const peopleOne = Random.choice(listToPaired);
                     pull(listToPaired, peopleOne);
                     const peopleTwo = Random.choice(listToPaired);
                     pull(listToPaired, peopleTwo);
-
                     if(i + 1 === length && oddPeople){
                         const htmlOutput = mjml2html(`
                         <mjml>
@@ -124,7 +141,7 @@ Meteor.startup(() => {
                                       </mj-section>
                                       <mj-section>
                                         <mj-column>
-                                         <mj-image width="150" border-radius="50%"src="https://betahaus-pairing.scalingo.io/${Files.findOne({_id: peopleOne.picture}).url()}" />
+                                         <mj-image width="150" border-radius="50%"src="${url}${Files.findOne({_id: peopleOne.picture}).url()}" />
                                          <mj-text font-size="20px" align="center">
                                                 ${peopleOne.name}
                                             </mj-text>
@@ -134,7 +151,7 @@ Meteor.startup(() => {
                                             </mj-text>
                                         </mj-column>
                                         <mj-column>
-                                         <mj-image width="150" border-radius="50%" src="https://betahaus-pairing.scalingo.io/${Files.findOne({_id: peopleTwo.picture}).url()}" />
+                                         <mj-image width="150" border-radius="50%" src="${url}${Files.findOne({_id: peopleTwo.picture}).url()}" />
                                          <mj-text font-size="20px" align="center">
                                                 ${peopleTwo.name}
                                             </mj-text>
@@ -144,7 +161,7 @@ Meteor.startup(() => {
                                             </mj-text>
                                         </mj-column>
                                         <mj-column>
-                                         <mj-image width="150" border-radius="50%" src="https://betahaus-pairing.scalingo.io/${Files.findOne({_id: oddPeople.picture}).url()}" />
+                                         <mj-image width="150" border-radius="50%" src="${url}${Files.findOne({_id: oddPeople.picture}).url()}" />
                                          <mj-text font-size="20px" align="center">
                                                 ${oddPeople.name}
                                             </mj-text>
@@ -178,7 +195,7 @@ Meteor.startup(() => {
                                       </mj-section>
                                       <mj-section>
                                         <mj-column>
-                                         <mj-image width="150" border-radius="50%"src="https://betahaus-pairing.scalingo.io/${Files.findOne({_id: peopleOne.picture}).url()}" />
+                                         <mj-image width="150" border-radius="50%"src="${url}${Files.findOne({_id: peopleOne.picture}).url()}" />
                                          <mj-text font-size="20px" align="center">
                                                 ${peopleOne.name}
                                             </mj-text>
@@ -188,7 +205,7 @@ Meteor.startup(() => {
                                             </mj-text>
                                         </mj-column>
                                         <mj-column>
-                                         <mj-image width="150" border-radius="50%" src="https://betahaus-pairing.scalingo.io/${Files.findOne({_id: peopleTwo.picture}).url()}" />
+                                         <mj-image width="150" border-radius="50%" src="${url}${Files.findOne({_id: peopleTwo.picture}).url()}" />
                                          <mj-text font-size="20px" align="center">
                                                 ${peopleTwo.name}
                                             </mj-text>
