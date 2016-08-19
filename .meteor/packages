@@ -29,3 +29,5 @@ cfs:gridfs
 session@1.1.6
 email@1.1.17
 shell-server
+kadira:flow-router
+kadira:blaze-layout

@@ -37,6 +37,16 @@ const Schema = new SimpleSchema({
         type: String,
         optional: false
     },
+    isPairedToday: {
+        type: Boolean,
+        defaultValue: false,
+        optional: false
+    },
+    idPairedWeek: {
+        type: Boolean,
+        defaultValue: true,
+        optional: false
+    },
     picture: {
         type: String,
         autoform: {
@@ -63,6 +73,12 @@ const Schema = new SimpleSchema({
 
 Registered.allow({
     insert(){
+        return true;
+    },
+    update(){
+        return true;
+    },
+    remove(){
         return true;
     }
 });

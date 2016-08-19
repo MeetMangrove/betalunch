@@ -1,22 +1,46 @@
 <head>
     <title>Betahaus Pairing</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 
-<body>
+<template name="main">
     <div class="center-align">
         <h1>Welcome to Betahaus !</h1>
-        {{> form}}
-    </div>
-</body>
-
-<template name="form">
-    <div class="container">
-        <div class="row">
-            <div class="col s12 offset-m3 m6 offset-l4 l4">
-                {{> quickForm collection=registered id="insertRegisteredForm" type="insert"}}
+        <div class="container">
+            <div class="row">
+                <div class="col s12 offset-m3 m6 offset-l4 l4">
+                    {{> Template.dynamic template=main}}
+                </div>
             </div>
         </div>
     </div>
 </template>
 
+<template name="form">
+    {{> quickForm collection=registered id="insertRegisteredForm" type="insert"}}
+</template>
 
+<template name="accept">
+    <p class="flow-text">
+        Congrate ! You're going to be paired today !<br/>
+        Don't forget to check your email at 12h00 ! ;)
+    </p>
+</template>
+
+<template name="reject">
+    <p class="flow-text">
+        As you want, you're not gonna be paired today. :'(
+    </p>
+</template>
+
+<template name="rejectweek">
+    <p class="flow-text">
+        As you want, you're not gonna be paired this week. :'(
+    </p>
+</template>
+
+<template name="unsubscribe">
+    <p class="flow-text">
+        As you want, you have been remove of our list. :'(
+    </p>
+</template>
