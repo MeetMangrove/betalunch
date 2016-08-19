@@ -8,7 +8,7 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 BlazeLayout.setRoot('body');
 
 FlowRouter.route('/', {
-    name: 'main',
+    name: 'form',
     action(){
         BlazeLayout.render('main', { main: 'form' });
     }
@@ -22,21 +22,21 @@ FlowRouter.route('/accept/:_id', {
 });
 
 FlowRouter.route('/reject/:_id', {
-    name: 'accept',
+    name: 'reject',
     action(){
         BlazeLayout.render('main', { main: 'reject' });
     }
 });
 
 FlowRouter.route('/rejectweek/:_id', {
-    name: 'accept',
+    name: 'rejectweek',
     action(){
         BlazeLayout.render('main', { main: 'rejectweek' });
     }
 });
 
 FlowRouter.route('/unsubscribe/:_id', {
-    name: 'accept',
+    name: 'unsubscribe',
     action(){
         BlazeLayout.render('main', { main: 'unsubscribe' });
     }

@@ -1,1 +1,5 @@
 /* CSS declarations go here */
+
+form .row:nth-child(4), form .row:nth-child(5){
+    display: none;
+}

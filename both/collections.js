@@ -40,12 +40,30 @@ const Schema = new SimpleSchema({
     isPairedToday: {
         type: Boolean,
         defaultValue: false,
-        optional: false
+        optional: false,
+        autoform: {
+            afFieldInput: {
+                type: "hidden",
+                label: false
+            },
+            afFormGroup: {
+                label: false
+            }
+        }
     },
-    idPairedWeek: {
+    isPairedWeek: {
         type: Boolean,
         defaultValue: true,
-        optional: false
+        optional: false,
+        autoform: {
+            afFieldInput: {
+                type: "hidden",
+                label: false
+            },
+            afFormGroup: {
+                label: false
+            }
+        }
     },
     picture: {
         type: String,
