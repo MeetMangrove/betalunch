@@ -22,7 +22,7 @@ Meteor.startup(() => {
             if(moment().hours() === 0){
                 Registered.update({}, {$set: {isPairedToday: false}});
             }
-            if(moment().hours() === 0 && moment().day() < 6){
+            if(moment().hours() === 1 && moment().day() < 6){
                 Registered.find({}).fetch().forEach((register) => {
                     const htmlOutput = mjml2html(`
                         <mjml>
@@ -105,7 +105,7 @@ Meteor.startup(() => {
                     });
                 });
             }
-            if(moment().hours() === 0 && moment().day() < 6){
+            if(moment().hours() === 1 && moment().day() < 6){
                 let listToPaired = Registered.find({
                     isPairedToday: true,
                     isPairedWeek: true,

@@ -7,17 +7,23 @@ import { Registered } from '../both/collections';
 import './main.html';
 
 AutoForm.setDefaultTemplate('materialize');
-AutoForm.addHooks(
-    ["insertRegisteredForm"],
-    {
-        before   : {
-            method: CfsAutoForm.Hooks.beforeInsert
-        },
-        after    : {
-            method: CfsAutoForm.Hooks.afterInsert
+AutoForm.hooks({
+    insertRegisteredForm: {
+        before: {
+            insert(doc) {
+                Meteor.call('exist', doc.email, (err, res) => {
+                    if(err){
+                        console.log(err);
+                    }else{
+                        if(!res)
+                            alert('Email already exist.');
+                        this.result(res);
+                    }
+                });
+            }
         }
     }
-);
+}, true);
 
 Template.form.helpers({
   registered() {
@@ -46,5 +52,4 @@ Template.change_pairing_days.helpers({
 Template.unsubscribe.onCreated(() => {
     Registered.remove({_id: FlowRouter.getParam("_id")});
 });
-
 

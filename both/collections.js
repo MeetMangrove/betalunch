@@ -31,10 +31,12 @@ const Schema = new SimpleSchema({
     },
     email: {
         type: String,
+        regEx: SimpleSchema.RegEx.Email,
         optional: false
     },
     number: {
         type: String,
+        max: 12,
         optional: false
     },
     isPairedToday: {
