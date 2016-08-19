@@ -1,5 +1,4 @@
 import { Meteor } from 'meteor/meteor';
-import { Tracker } from 'meteor/tracker';
 import moment from 'moment-timezone';
 import { Email } from 'meteor/email';
 import { mjml2html } from 'mjml';
@@ -8,23 +7,21 @@ import pull from 'lodash/pull';
 import { Registered, Files } from '../both/collections';
 
 const week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-
-
+const url = Meteor.settings.url;
 
 Meteor.startup(() => {
     process.env.MAIL_URL = 'smtp://thomaster:mangrove2016@smtp.sendgrid.net:587';
 
-    Tracker.autorun(() => {
-        Meteor.setTimeout(() => {
-            if(moment().hours() === 0 && moment().day() === 1){
-                Registered.update({}, {$set: {isPairedWeek: true}});
-            }
-            if(moment().hours() === 0){
-                Registered.update({}, {$set: {isPairedToday: false}});
-            }
-            if(moment().hours() === 1 && moment().day() < 6){
-                Registered.find({}).fetch().forEach((register) => {
-                    const htmlOutput = mjml2html(`
+    Meteor.setTimeout(() => {
+        if(moment().hours() === 0 && moment().day() === 1){
+            Registered.update({}, {$set: {isPairedWeek: true}});
+        }
+        if(moment().hours() === 0){
+            Registered.update({}, {$set: {isPairedToday: false}});
+        }
+        if(moment().hours() === 1){
+            Registered.find({}).fetch().forEach((register) => {
+                const htmlOutput = mjml2html(`
                         <mjml>
                             <mj-body>
                                 <mj-container>
@@ -97,38 +94,39 @@ Meteor.startup(() => {
                             </mj-body>
                         </mjml>
                     `);
-                    Email.send({
-                        to: register.email,
-                        from: 'thomas.jeanneau.freelance@gmail.com',
-                        subject: 'Do you want a pairing today ?',
-                        html: htmlOutput
-                    });
+                Email.send({
+                    to: register.email,
+                    from: 'thomas.jeanneau.freelance@gmail.com',
+                    subject: 'Do you want a pairing today ?',
+                    html: htmlOutput
                 });
-            }
-            if(moment().hours() === 1 && moment().day() < 6){
-                let listToPaired = Registered.find({
-                    isPairedToday: true,
-                    isPairedWeek: true,
-                    week: {
-                        $elemMatch: {
-                            $eq: week[moment().day() - 1]
-                        }
+            });
+        }
+    }, 0);
+    Meteor.setTimeout(() => {
+        if(moment().hours() === 1){
+            let listToPaired = Registered.find({
+                isPairedToday: true,
+                isPairedWeek: true,
+                week: {
+                    $elemMatch: {
+                        $eq: week[moment().day() - 1]
                     }
-                }).fetch();
-                let oddPeople = null;
-                if(listToPaired % 2 === 1){
-                    oddPeople = Random.choice(listToPaired);
-                    pull(listToPaired, oddPeople);
                 }
-                const length = listToPaired.length;
-                const url = Meteor.settings.url;
-                for(let i = 0; i < length / 2 ; i++) {
-                    const peopleOne = Random.choice(listToPaired);
-                    pull(listToPaired, peopleOne);
-                    const peopleTwo = Random.choice(listToPaired);
-                    pull(listToPaired, peopleTwo);
-                    if(i + 1 === length && oddPeople){
-                        const htmlOutput = mjml2html(`
+            }).fetch();
+            let oddPeople = null;
+            if(listToPaired % 2 === 1){
+                oddPeople = Random.choice(listToPaired);
+                pull(listToPaired, oddPeople);
+            }
+            const length = listToPaired.length;
+            for(let i = 0; i < length / 2 ; i++) {
+                const peopleOne = Random.choice(listToPaired);
+                pull(listToPaired, peopleOne);
+                const peopleTwo = Random.choice(listToPaired);
+                pull(listToPaired, peopleTwo);
+                if(i + 1 === length && oddPeople){
+                    const htmlOutput = mjml2html(`
                         <mjml>
                             <mj-body>
                                 <mj-container>
@@ -175,14 +173,14 @@ Meteor.startup(() => {
                             </mj-body>
                         </mjml>
                         `);
-                        Email.send({
-                            to: [peopleOne.email, peopleTwo.email, oddPeople.email],
-                            from: 'thomas.jeanneau.freelance@gmail.com',
-                            subject: 'You are paired !',
-                            html: htmlOutput
-                        });
-                    }else{
-                        const htmlOutput = mjml2html(`
+                    Email.send({
+                        to: [peopleOne.email, peopleTwo.email, oddPeople.email],
+                        from: 'thomas.jeanneau.freelance@gmail.com',
+                        subject: 'You are paired !',
+                        html: htmlOutput
+                    });
+                }else{
+                    const htmlOutput = mjml2html(`
                         <mjml>
                             <mj-body>
                                 <mj-container>
@@ -219,16 +217,15 @@ Meteor.startup(() => {
                             </mj-body>
                         </mjml>
                         `);
-                        Email.send({
-                            to: [peopleOne.email, peopleTwo.email],
-                            from: 'thomas.jeanneau.freelance@gmail.com',
-                            subject: 'You are paired !',
-                            html: htmlOutput
-                        });
-                    }
+                    Email.send({
+                        to: [peopleOne.email, peopleTwo.email],
+                        from: 'thomas.jeanneau.freelance@gmail.com',
+                        subject: 'You are paired !',
+                        html: htmlOutput
+                    });
                 }
             }
-        }, 36);
-    });
+        }
+    }, 120000);
 });
 
