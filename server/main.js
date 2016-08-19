@@ -13,13 +13,14 @@ Meteor.startup(() => {
     process.env.MAIL_URL = 'smtp://thomaster:mangrove2016@smtp.sendgrid.net:587';
 
     Meteor.setTimeout(() => {
+        console.log(moment().hours());
         if(moment().hours() === 0 && moment().day() === 1){
             Registered.update({}, {$set: {isPairedWeek: true}});
         }
         if(moment().hours() === 0){
             Registered.update({}, {$set: {isPairedToday: false}});
         }
-        if(moment().hours() === 1){
+        //if(moment().hours() === 1){
             Registered.find({}).fetch().forEach((register) => {
                 const htmlOutput = mjml2html(`
                         <mjml>
@@ -101,10 +102,10 @@ Meteor.startup(() => {
                     html: htmlOutput
                 });
             });
-        }
+        //}
     }, 0);
     Meteor.setTimeout(() => {
-        if(moment().hours() === 1){
+        //if(moment().hours() === 1){
             let listToPaired = Registered.find({
                 isPairedToday: true,
                 isPairedWeek: true,
@@ -225,7 +226,7 @@ Meteor.startup(() => {
                     });
                 }
             }
-        }
-    }, 120000);
+        //}
+    }, 200000);
 });
 
