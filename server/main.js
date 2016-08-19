@@ -14,12 +14,12 @@ Meteor.startup(() => {
 
     Meteor.setTimeout(() => {
         console.log(moment().hours());
-        if(moment().hours() === 0 && moment().day() === 1){
+        /*if(moment().hours() === 0 && moment().day() === 1){
             Registered.update({}, {$set: {isPairedWeek: true}});
         }
         if(moment().hours() === 0){
             Registered.update({}, {$set: {isPairedToday: false}});
-        }
+        }*/
         //if(moment().hours() === 1){
             Registered.find({}).fetch().forEach((register) => {
                 const htmlOutput = mjml2html(`
@@ -95,12 +95,12 @@ Meteor.startup(() => {
                             </mj-body>
                         </mjml>
                     `);
-                Email.send({
+                /*Email.send({
                     to: register.email,
                     from: 'thomas.jeanneau.freelance@gmail.com',
                     subject: 'Do you want a pairing today ?',
                     html: htmlOutput
-                });
+                });*/
             });
         //}
     }, 0);
@@ -109,11 +109,11 @@ Meteor.startup(() => {
             let listToPaired = Registered.find({
                 isPairedToday: true,
                 isPairedWeek: true,
-                week: {
+                /*week: {
                     $elemMatch: {
                         $eq: week[moment().day() - 1]
                     }
-                }
+                }*/
             }).fetch();
             let oddPeople = null;
             if(listToPaired % 2 === 1){
