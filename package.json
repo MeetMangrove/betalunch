@@ -5,6 +5,9 @@
     "start": "meteor run"
   },
   "dependencies": {
-    "meteor-node-stubs": "~0.2.0"
+    "meteor-node-stubs": "~0.2.0",
+    "mjml": "^2.3.2",
+    "moment": "^2.14.1",
+    "moment-timezone": "^0.5.5"
   }
 }
