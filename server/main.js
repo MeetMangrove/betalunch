@@ -19,7 +19,7 @@ Meteor.startup(() => {
         if(moment().hours() === 0){
             Registered.update({}, {$set: {isPairedToday: false}});
         }
-        if(moment().hours() === 9){
+        if(moment().hours() === 10){
             Registered.find({}).fetch().forEach((register) => {
                 const htmlOutput = mjml2html(`
                         <mjml>
@@ -224,6 +224,6 @@ Meteor.startup(() => {
                 }
             }
         }
-    }, 3600000);
+    }, 3600);
 });
 
