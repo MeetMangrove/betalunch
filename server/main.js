@@ -13,7 +13,7 @@ const url = Meteor.settings.url;
 Meteor.startup(() => {
     process.env.MAIL_URL = 'smtp://thomaster:mangrove2016@smtp.sendgrid.net:587';
 
-    cron.schedule('* * * * *', Meteor.bindEnvironment(function() {
+    cron.schedule('1 1,9,12 * * *', Meteor.bindEnvironment(function() {
         const timeHours = moment().tz('Europe/Berlin').hours();
         console.log(timeHours);
         if (timeHours === 0 && moment().day() === 1) {
@@ -106,7 +106,7 @@ Meteor.startup(() => {
                 });
             });
         }
-        if (timeHours === 13) {
+        if (timeHours === 12) {
             let listToPaired = Registered.find({
                 isPairedToday: true,
                 isPairedWeek: true
