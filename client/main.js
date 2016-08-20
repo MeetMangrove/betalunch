@@ -11,7 +11,7 @@ AutoForm.hooks({
     insertRegisteredForm: {
         before: {
             insert(doc) {
-                Meteor.call('exist', doc.email, (err, res) => {
+                Meteor.call('exist', doc, (err, res) => {
                     if(err){
                         console.log(err);
                     }else{
@@ -20,6 +20,16 @@ AutoForm.hooks({
                         this.result(res);
                     }
                 });
+            }
+        },
+        after: {
+            insert(err, res) {
+                if(err){
+                    console.log(err);
+                    alert(err);
+                }else{
+                    alert('You are registered !')
+                }
             }
         }
     }

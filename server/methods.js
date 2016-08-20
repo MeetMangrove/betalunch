@@ -7,6 +7,6 @@ import { Registered } from '../both/collections';
 
 Meteor.methods({
    exist(doc){
-       return Registered.findOne({email: doc.email}) ? doc : false;
+       return Registered.findOne({email: doc.email}) ? false : doc;
    }
 });

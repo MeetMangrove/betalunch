@@ -11,8 +11,8 @@ const Files = new FS.Collection("files", {
 });
 
 Files.allow({
-    insert() {
-      return true;
+    insert(user, doc) {
+      return doc.size() < 1000000;
     },
     update() {
         return true;
@@ -32,12 +32,21 @@ const Schema = new SimpleSchema({
     email: {
         type: String,
         regEx: SimpleSchema.RegEx.Email,
-        optional: false
+        optional: false,
+        autoform: {
+            afFieldInput: {
+                type: 'email'
+            }
+        }
     },
     number: {
         type: String,
         max: 12,
-        optional: false
+        optional: false,
+        autoform: {
+            type: 'tel',
+            label: 'Mobile Phone'
+        }
     },
     isPairedToday: {
         type: Boolean,
@@ -71,6 +80,7 @@ const Schema = new SimpleSchema({
         type: String,
         autoform: {
             template: "bootstrap3",
+            label: 'Profile Picture (less than 1M)',
             afFieldInput: {
                 type: "cfs-file",
                 collection: "files"
@@ -83,8 +93,11 @@ const Schema = new SimpleSchema({
         allowedValues: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
         autoform: {
             type: "select",
+            label: 'Days of the week',
             afFieldInput: {
-                multiple: true
+                multiple: true,
+                firstOption: false,
+                defaultValue: 'Monday'
             }
         },
         optional: false

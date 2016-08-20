@@ -1,5 +1,39 @@
 /* CSS declarations go here */
+@font-face {
+    font-family: 'museo_sans';
+    src: url('/fonts/MuseoSans_500-webfont.eot');
+    src: url('/fonts/MuseoSans_500-webfont.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/MuseoSans_500-webfont.woff2') format('woff2'),
+    url('/fonts/MuseoSans_500-webfont.woff') format('woff'),
+    url('/fonts/MuseoSans_500-webfont.ttf') format('truetype'),
+    url('/fonts/MuseoSans_500-webfont.svg#museo_sans500') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html {
+    background: url('http://d2tjgupm4m2jnv.cloudfront.net/wp/assets/sites/2/Betahaus-HR-Caf%C3%A9-3-Danique-van-Kesteren.jpg') no-repeat center center;
+    background-size: cover;
+}
+body {
+    padding: 50px 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+}
+
+h1 {
+    font-weight: bold;
+}
+
+h1, h5 {
+    font-family: 'museo_sans', sans-serif;
+}
 
 form .row:nth-child(4), form .row:nth-child(5){
     display: none;
 }
+
+.form-group label{
+    float: left;
+}
+
