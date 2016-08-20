@@ -34,7 +34,11 @@ h1, h5 {
     font-family: 'museo_sans', sans-serif;
 }
 
-form .row:nth-child(4), form .row:nth-child(5){
+form#insertRegisteredForm .row:nth-child(4), form .row:nth-child(5){
+    display: none;
+}
+
+form#updatePairingDays .row:nth-child(3), form .row:nth-child(4){
     display: none;
 }
 

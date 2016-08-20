@@ -51,7 +51,7 @@ const Schema = new SimpleSchema({
     isPairedToday: {
         type: Boolean,
         defaultValue: false,
-        optional: false,
+        optional: true,
         autoform: {
             afFieldInput: {
                 type: "hidden",
@@ -65,7 +65,7 @@ const Schema = new SimpleSchema({
     isPairedWeek: {
         type: Boolean,
         defaultValue: true,
-        optional: false,
+        optional: true,
         autoform: {
             afFieldInput: {
                 type: "hidden",

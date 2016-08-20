@@ -32,6 +32,18 @@ AutoForm.hooks({
                 }
             }
         }
+    },
+    updatePairingDays: {
+        after: {
+            update(err, res) {
+                if(err){
+                    console.log(err);
+                    alert(err);
+                }else{
+                    alert('Your account have been updated !')
+                }
+            }
+        }
     }
 }, true);
 
@@ -56,6 +68,9 @@ Template.change_pairing_days.onCreated(() => {
 Template.change_pairing_days.helpers({
     currentUser(){
         return Registered.findOne({_id: FlowRouter.getParam('_id')});
+    },
+    registered() {
+        return Registered;
     }
 });
 

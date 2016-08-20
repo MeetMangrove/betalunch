@@ -25,7 +25,7 @@
 
 <template name="accept">
     <p class="flow-text">
-        Congrate ! You're going to be paired today !<br/>
+        Congratulation ! You're going to be paired today !<br/>
         Don't forget to check your email at 12h00 ! ;)
     </p>
 </template>
@@ -43,9 +43,8 @@
 </template>
 
 <template name="change_pairing_days">
-    {{#autoform collection=registered id="updatePairingDays" type="update" doc=currentUser}}
-        {{> afQuickField name='week'}}
-    {{/autoform}}
+    <h5>You can update your account.</h5>
+    {{> quickForm collection=registered id="updatePairingDays" type="update" doc=currentUser omitFields='email'}}
 </template>
 
 <template name="unsubscribe">
