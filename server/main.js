@@ -12,18 +12,23 @@ const url = Meteor.settings.url;
 Meteor.startup(() => {
     process.env.MAIL_URL = 'smtp://thomaster:mangrove2016@smtp.sendgrid.net:587';
 
-    //Meteor.setTimeout(() => {
-        const timeHours = moment().tz('Europe/Berlin').hours();
-        console.log(timeHours);
-        if(timeHours === 0 && moment().day() === 1){
-            Registered.update({}, {$set: {isPairedWeek: true}});
-        }
-        if(timeHours === 0){
-            Registered.update({}, {$set: {isPairedToday: false}});
-        }
-        if(timeHours === 10){
-            Registered.find({}).fetch().forEach((register) => {
-                const htmlOutput = mjml2html(`
+    const synchroId = Meteor.setInterval(() => {
+        const timeMinutes = moment().tz('Europe/Berlin').minutes();
+        console.log(timeMinutes);
+        if(timeMinutes === 0){
+            Meteor.clearInterval(synchroId);
+            Meteor.setInterval(() => {
+                const timeHours = moment().tz('Europe/Berlin').hours();
+                console.log(timeHours);
+                if(timeHours === 0 && moment().day() === 1){
+                    Registered.update({}, {$set: {isPairedWeek: true}});
+                }
+                if(timeHours === 0){
+                    Registered.update({}, {$set: {isPairedToday: false}});
+                }
+                if(timeHours === 9){
+                    Registered.find({}).fetch().forEach((register) => {
+                        const htmlOutput = mjml2html(`
                         <mjml>
                             <mj-body>
                                 <mj-container>
@@ -31,7 +36,7 @@ Meteor.startup(() => {
                                         <mj-column>
                                           <mj-image width="150" border-radius="50%"src="${url}${Files.findOne({_id: register.picture}).url()}" />           
                                             <mj-text align="center" font-size="24px">
-                                                Good morning Thomas Jeanneau !<br/>  
+                                                Good morning ${register.name} !<br/>  
                                                 Do you want to be paired today ?
                                             </mj-text>
                                         </mj-column>
@@ -44,6 +49,7 @@ Meteor.startup(() => {
                                                    background-color="#8BC34A" 
                                                    color="white"
                                                    padding-left="200px"
+                                                   inner-padding="20px"
                                                    href="${url}/accept/${register._id}">
                                                       Yes
                                                 </mj-button>
@@ -53,6 +59,7 @@ Meteor.startup(() => {
                                                    font-family="Helvetica" 
                                                    background-color="#FF5722" 
                                                    color="white"
+                                                   inner-padding="20px"
                                                    padding-right="200px"
                                                    href="${url}/reject/${register._id}">
                                                       No
@@ -63,70 +70,69 @@ Meteor.startup(() => {
                                      <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey" />
                                       <mj-section>
                                         <mj-group>
-                                            <mj-column>
-                                                <mj-button 
+                                               <mj-button 
                                                    font-family="Helvetica" 
                                                    background-color="#039be5" 
+                                                   inner-padding="15px"
+                                                   padding-bottom="15px"
                                                    color="white"
                                                    href="${url}/reject_week/${register._id}">
                                                       I don't want a pairing this week.
                                                     </mj-button>
-                                            </mj-column>
-                                             <mj-column>
+                                             <mj-spacer height="15px" />
                                                  <mj-button 
                                                    font-family="Helvetica" 
                                                    background-color="#039be5" 
-                                                   color="white"
+                                                   inner-padding="15px"
                                                    href="${url}/change_pairing_days/${register._id}">
                                                       I want to change my pairing days.
                                                  </mj-button>
-                                            </mj-column>
-                                            <mj-column>
+                                             <mj-spacer height="15px" />
                                                  <mj-button 
                                                    font-family="Helvetica" 
                                                    background-color="#039be5" 
+                                                   inner-padding="15px"
                                                    color="white"
                                                    href="${url}/unsubscribe/${register._id}">
                                                       I want to be unsubscribed.
-                                                 </mj-button>
-                                            </mj-column>
+                                                 </mj-button>                                     
                                         </mj-group>
                                     </mj-section>
                                 </mj-container>
                             </mj-body>
                         </mjml>
                     `);
-                Email.send({
-                    to: register.email,
-                    from: 'thomas.jeanneau.freelance@gmail.com',
-                    subject: 'Do you want a pairing today ?',
-                    html: htmlOutput
-                });
-            });
-        }
-        if(timeHours === 12){
-            let listToPaired = Registered.find({
-                isPairedToday: true,
-                isPairedWeek: true,
-                /*week: {
-                    $elemMatch: {
-                        $eq: week[moment().day() - 1]
+                        Email.send({
+                            to: register.email,
+                            from: 'thomas.jeanneau.freelance@gmail.com',
+                            subject: 'Do you want a pairing today ?',
+                            html: htmlOutput
+                        });
+                    });
+                }
+                if(timeHours === 12){
+                    let listToPaired = Registered.find({
+                        isPairedToday: true,
+                        isPairedWeek: true
+                        /*week: {
+                         $elemMatch: {
+                         $eq: week[moment().day() - 1]
+                         }
+                         }*/
+                    }).fetch();
+                    let oddPeople = null;
+                    if(listToPaired % 2 === 1){
+                        oddPeople = Random.choice(listToPaired);
+                        pull(listToPaired, oddPeople);
                     }
-                }*/
-            }).fetch();
-            let oddPeople = null;
-            if(listToPaired % 2 === 1){
-                oddPeople = Random.choice(listToPaired);
-                pull(listToPaired, oddPeople);
-            }
-            const length = listToPaired.length;
-            for(let i = 0; i < length / 2 ; i++) {
-                const peopleOne = Random.choice(listToPaired);
-                pull(listToPaired, peopleOne);
-                const peopleTwo = Random.choice(listToPaired);
-                pull(listToPaired, peopleTwo);
-                if(i + 1 === length && oddPeople){
-                    const htmlOutput = mjml2html(`
+                    const length = listToPaired.length;
+                    for(let i = 0; i < length / 2 ; i++) {
+                        const peopleOne = Random.choice(listToPaired);
+                        pull(listToPaired, peopleOne);
+                        const peopleTwo = Random.choice(listToPaired);
+                        pull(listToPaired, peopleTwo);
+                        if(i + 1 === length && oddPeople){
+                            const htmlOutput = mjml2html(`
                         <mjml>
                             <mj-body>
                                 <mj-container>
@@ -173,14 +179,14 @@ Meteor.startup(() => {
                             </mj-body>
                         </mjml>
                         `);
-                    Email.send({
-                        to: [peopleOne.email, peopleTwo.email, oddPeople.email],
-                        from: 'thomas.jeanneau.freelance@gmail.com',
-                        subject: 'You are paired !',
-                        html: htmlOutput
-                    });
-                }else{
-                    const htmlOutput = mjml2html(`
+                            Email.send({
+                                to: [peopleOne.email, peopleTwo.email, oddPeople.email],
+                                from: 'thomas.jeanneau.freelance@gmail.com',
+                                subject: 'You are paired !',
+                                html: htmlOutput
+                            });
+                        }else{
+                            const htmlOutput = mjml2html(`
                         <mjml>
                             <mj-body>
                                 <mj-container>
@@ -217,15 +223,17 @@ Meteor.startup(() => {
                             </mj-body>
                         </mjml>
                         `);
-                    Email.send({
-                        to: [peopleOne.email, peopleTwo.email],
-                        from: 'thomas.jeanneau.freelance@gmail.com',
-                        subject: 'You are paired !',
-                        html: htmlOutput
-                    });
+                            Email.send({
+                                to: [peopleOne.email, peopleTwo.email],
+                                from: 'thomas.jeanneau.freelance@gmail.com',
+                                subject: 'You are paired !',
+                                html: htmlOutput
+                            });
+                        }
+                    }
                 }
-            }
+            }, 3600000);
         }
-    //}, 3600);
+    }, 60000);
 });
 
