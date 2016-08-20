@@ -12,7 +12,8 @@ const url = Meteor.settings.url;
 Meteor.startup(() => {
     process.env.MAIL_URL = 'smtp://thomaster:mangrove2016@smtp.sendgrid.net:587';
 
-    Meteor.setTimeout(() => {
+    //Meteor.setTimeout(() => {
+        console.log(moment().hours());
         if(moment().hours() === 0 && moment().day() === 1){
             Registered.update({}, {$set: {isPairedWeek: true}});
         }
@@ -224,6 +225,6 @@ Meteor.startup(() => {
                 }
             }
         }
-    }, 3600);
+    //}, 3600);
 });
 
