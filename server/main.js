@@ -16,10 +16,10 @@ Meteor.startup(() => {
     cron.schedule('1 1,9,12 * * *', Meteor.bindEnvironment(function() {
         const timeHours = moment().tz('Europe/Berlin').hours();
         console.log(timeHours);
-        if (timeHours === 0 && moment().day() === 1) {
+        if (timeHours === 1 && moment().day() === 1) {
             Registered.update({}, {$set: {isPairedWeek: true}});
         }
-        if (timeHours === 0) {
+        if (timeHours === 1) {
             Registered.update({}, {$set: {isPairedToday: false}});
         }
         if (timeHours === 9) {
