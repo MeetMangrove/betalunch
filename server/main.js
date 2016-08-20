@@ -13,7 +13,7 @@ const url = Meteor.settings.url;
 Meteor.startup(() => {
     process.env.MAIL_URL = 'smtp://thomaster:mangrove2016@smtp.sendgrid.net:587';
 
-    cron.schedule('18 0,9,13 * * *', Meteor.bindEnvironment(function() {
+    cron.schedule('25 0,9,13 * * *', Meteor.bindEnvironment(function() {
         const timeHours = moment().tz('Europe/Berlin').hours();
         console.log(timeHours);
         if (timeHours === 0 && moment().day() === 1) {
