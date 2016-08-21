@@ -14,7 +14,7 @@ const timeZone = Meteor.settings.timeZone;
 Meteor.startup(() => {
     process.env.MAIL_URL = 'smtp://thomaster:mangrove2016@smtp.sendgrid.net:587';
     const job = new cron.CronJob({
-        cronTime: '00 55 1,9,12 * * *',
+        cronTime: '00 00 1,9,12 * * *',
         onTick: Meteor.bindEnvironment(function() {
             const timeHours = moment().tz(timeZone).hours();
             console.log(timeHours);
