@@ -14,8 +14,8 @@ Files.allow({
     insert(user, doc) {
       return doc.size() < 1000000; // TODO: explain what happens if uploaded doc.size() >= 1000000
     },
-    update() {
-        return true; // TODO: don't we need the same condition as above, if user updates their avatar?
+    update(user, doc) {
+        return doc.size() < 1000000;
     },
     download() {
         return true;
@@ -48,7 +48,7 @@ const Schema = new SimpleSchema({
             label: 'Mobile Phone'
         }
     },
-    isPairedToday: { // TODO: what is field for? explain.
+    isPairedToday: { // Boolean to know if this person accepted to be paired today.
         type: Boolean,
         defaultValue: false,
         optional: true,
@@ -62,7 +62,7 @@ const Schema = new SimpleSchema({
             }
         }
     },
-    isPairedWeek: { // TODO: what is field for? explain.
+    isPairedWeek: { // Boolean to know if this person accepted to be paired this week.
         type: Boolean,
         defaultValue: true,
         optional: true,
@@ -88,7 +88,7 @@ const Schema = new SimpleSchema({
         },
         optional: false
     },
-    week: { // TODO: what is field for? explain.
+    week: { // Array to know when the user want's to be paired.
         type: [String],
         allowedValues: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
         autoform: {
@@ -109,10 +109,10 @@ Registered.allow({
         return true;
     },
     update(){
-        return true; // TODO: so every user can update every other user?
+        return true; // There is not authentification system, so if someone delete all the database, we can restore a backup with mongoDB.
     },
     remove(){
-        return true; // TODO: so every user can remove every other user?
+        return true; // Same
     }
 });
 
