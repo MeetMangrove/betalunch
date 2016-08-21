@@ -12,10 +12,10 @@ const Files = new FS.Collection("files", {
 
 Files.allow({
     insert(user, doc) {
-      return doc.size() < 1000000;
+      return doc.size() < 1000000; // TODO: explain what happens if uploaded doc.size() >= 1000000
     },
     update() {
-        return true;
+        return true; // TODO: don't we need the same condition as above, if user updates their avatar?
     },
     download() {
         return true;
@@ -48,7 +48,7 @@ const Schema = new SimpleSchema({
             label: 'Mobile Phone'
         }
     },
-    isPairedToday: {
+    isPairedToday: { // TODO: what is field for? explain.
         type: Boolean,
         defaultValue: false,
         optional: true,
@@ -62,7 +62,7 @@ const Schema = new SimpleSchema({
             }
         }
     },
-    isPairedWeek: {
+    isPairedWeek: { // TODO: what is field for? explain.
         type: Boolean,
         defaultValue: true,
         optional: true,
@@ -88,7 +88,7 @@ const Schema = new SimpleSchema({
         },
         optional: false
     },
-    week: {
+    week: { // TODO: what is field for? explain.
         type: [String],
         allowedValues: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
         autoform: {
@@ -109,10 +109,10 @@ Registered.allow({
         return true;
     },
     update(){
-        return true;
+        return true; // TODO: so every user can update every other user?
     },
     remove(){
-        return true;
+        return true; // TODO: so every user can remove every other user?
     }
 });
 
