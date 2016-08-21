@@ -14,14 +14,14 @@ const timeZone = Meteor.settings.timeZone;
 Meteor.startup(() => {
     process.env.MAIL_URL = 'smtp://thomaster:mangrove2016@smtp.sendgrid.net:587';
     const job = new cron.CronJob({
-        cronTime: '00 00 1,9,12 * * *',
+        cronTime: '00 00 0,9,12 * * *',
         onTick: Meteor.bindEnvironment(function() {
             const timeHours = moment().tz(timeZone).hours();
             console.log(timeHours);
-            if (timeHours === 1 && moment().day() === 1) {
+            if (timeHours === 0 && moment().day() === 1) {
                 Registered.update({}, {$set: {isPairedWeek: true}});
             }
-            if (timeHours === 1) {
+            if (timeHours === 0) {
                 Registered.update({}, {$set: {isPairedToday: false}});
             }
             if (timeHours === 9) {
