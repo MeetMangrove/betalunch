@@ -12,7 +12,7 @@ const Files = new FS.Collection("files", {
 
 Files.allow({
     insert(user, doc) {
-      return doc.size() < 1000000; // TODO: explain what happens if uploaded doc.size() >= 1000000
+      return doc.size() < 1000000; // An alert is display if result is false
     },
     update(user, doc) {
         return doc.size() < 1000000;
