@@ -10,6 +10,6 @@
     "mjml": "^2.3.2",
     "moment": "^2.14.1",
     "moment-timezone": "^0.5.5",
-    "node-cron": "^1.1.1"
+    "cron": "^1.1.0"
   }
 }
