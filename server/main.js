@@ -46,7 +46,6 @@ Meteor.startup(() => {
                                                    font-family="Helvetica" 
                                                    background-color="#8BC34A" 
                                                    color="white"
-                                                   padding-left="200px"
                                                    inner-padding="20px"
                                                    href="${url}/accept/${register._id}">
                                                       Yes
@@ -57,8 +56,7 @@ Meteor.startup(() => {
                                                    font-family="Helvetica" 
                                                    background-color="#FF5722" 
                                                    color="white"
-                                                   inner-padding="20px"
-                                                   padding-right="200px"
+                                                   inner-padding="20px"                                                 
                                                    href="${url}/reject/${register._id}">
                                                       No
                                                 </mj-button>
