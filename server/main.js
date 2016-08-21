@@ -12,12 +12,13 @@ const url = Meteor.settings.url;
 const timeZone = Meteor.settings.timeZone;
 
 Meteor.startup(() => {
-    process.env.MAIL_URL = 'smtp://thomaster:mangrove2016@smtp.sendgrid.net:587';
+    process.env.MAIL_URL = 'smtp://thomaster:mangrove2016@smtp.sendgrid.net:587'; // TODO: move value to scalingo's environment variables => remove this line
     const job = new cron.CronJob({
-        cronTime: '00 00 0,9,12 * * *',
+        cronTime: '00 00 0,9,12 * * *', // TODO: doing one cronjob per hour (one for midnight, one for 9am and one for 12pm) would remove the necessity of the several `if(timeHours...)` in the function below => better readability
+        // TODO: the definition of the function below should be done outside of the Meteor.startup() block, to increase readability
         onTick: Meteor.bindEnvironment(function() {
             const timeHours = moment().tz(timeZone).hours();
-            console.log(timeHours);
+            console.log('CRONJOB hour:', timeHours);
             if (timeHours === 0 && moment().day() === 1) {
                 Registered.update({}, {$set: {isPairedWeek: true}});
             }
@@ -25,7 +26,7 @@ Meteor.startup(() => {
                 Registered.update({}, {$set: {isPairedToday: false}});
             }
             if (timeHours === 9) {
-                Registered.find({}).fetch().forEach((register) => {
+                Registered.find({}).fetch().forEach((register) => { // TODO: this fat arrow fct could be moved outside of the block, for readability
                     const htmlOutput = mjml2html(`
                         <mjml>
                             <mj-body>
@@ -100,7 +101,7 @@ Meteor.startup(() => {
                     `);
                     Email.send({
                         to: register.email,
-                        from: 'thomas.jeanneau.freelance@gmail.com',
+                        from: process.env.FROM_EMAIL,
                         subject: 'Do you want a pairing today ?',
                         html: htmlOutput
                     });
@@ -112,12 +113,12 @@ Meteor.startup(() => {
                     isPairedWeek: true
                     /*week: {
                      $elemMatch: {
-                     $eq: week[moment().day() - 1]
+                     $eq: week[moment().day() - 1] // TODO: explain this
                      }
                      }*/
                 }).fetch();
-                let oddPeople = null;
-                if (listToPaired % 2 === 1) {
+                let oddPeople = null; // TODO: what is this? one person? a list of people? why? we need explainations here.
+                if (listToPaired % 2 === 1) { // TODO: listToPaired.length, you mean?
                     oddPeople = Random.choice(listToPaired);
                     pull(listToPaired, oddPeople);
                 }
@@ -127,7 +128,8 @@ Meteor.startup(() => {
                     pull(listToPaired, peopleOne);
                     const peopleTwo = Random.choice(listToPaired);
                     pull(listToPaired, peopleTwo);
-                    if (i + 1 === length && oddPeople) {
+                    if (i + 1 === length && oddPeople) { // TODO: explain why this condition
+                        // TODO: this rendering fct could be moved outside of the block, for readability
                         const htmlOutput = mjml2html(`
                         <mjml>
                             <mj-body>
@@ -182,6 +184,7 @@ Meteor.startup(() => {
                             html: htmlOutput
                         });
                     } else {
+                        // TODO: this rendering fct could be moved outside of the block, for readability
                         const htmlOutput = mjml2html(`
                         <mjml>
                             <mj-body>
