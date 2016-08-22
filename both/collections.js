@@ -90,6 +90,7 @@ const Schema = new SimpleSchema({
     },
     week: { // Array to know when the user want's to be paired.
         type: [String],
+        defaultValue: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
         allowedValues: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
         autoform: {
             type: "select",
@@ -97,7 +98,7 @@ const Schema = new SimpleSchema({
             afFieldInput: {
                 multiple: true,
                 firstOption: false,
-                defaultValue: 'Monday'
+                options:'allowed'
             }
         },
         optional: false

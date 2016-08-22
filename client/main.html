@@ -1,11 +1,11 @@
 <head>
-    <title>Betahaus Pairing</title>
+    <title>betalunch</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 
 <template name="main">
     <div class="center-align">
-        <h1>Welcome to Betahaus !</h1>
+        <h1>betalaunch</h1>
         <div class="container">
             <div class="row">
                 <div class="col s12 offset-m3 m6">
@@ -17,9 +17,14 @@
 </template>
 
 <template name="form">
-    <h5>Register to be paired with another member of the community any day you want !</h5>
+    <p>Want to meet new people from the betahaus
+        community over lunch?
+        Register to the betalunch pairing system and
+        never eat alone anymore ;) </p>
     <div class="col s12 offset-l2 l8">
-        {{> quickForm collection=registered id="insertRegisteredForm" type="insert"}}
+        <div class="card-panel white">
+            {{> quickForm collection=registered id="insertRegisteredForm" type="insert"}}
+        </div>
     </div>
 </template>
 

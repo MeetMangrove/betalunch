@@ -51,6 +51,12 @@ AutoForm.hooks({
     }
 }, true);
 
+Template.form.onRendered(() => {
+    $('select').material_select('destroy');
+    $("select option").attr("selected", true);
+    $('select').material_select();
+});
+
 Template.form.helpers({
   registered() {
     return Registered;
