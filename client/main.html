@@ -1,9 +1,15 @@
 <head>
     <title>betalunch</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <template name="main">
+    <div class="backToBeta">
+        <a href="http://www.betahaus.com/berlin/" class="waves-effect waves-teal btn-flat">
+            <i class="small material-icons left">chevron_left</i>Back to betahaus
+        </a>
+    </div>
     <div class="center-align">
         <h1>betalaunch</h1>
         <div class="container">
@@ -14,6 +20,9 @@
             </div>
         </div>
     </div>
+    <a href="http://www.meetmangrove.com/" target="_blank" class="mangroveLogo">
+        <img src="/logo.png" height="77" width="100">
+    </a>
 </template>
 
 <template name="form">
@@ -23,15 +32,16 @@
         never eat alone anymore ;) </p>
     <div class="col s12 offset-l2 l8">
         <div class="card-panel white">
-            {{> quickForm collection=registered id="insertRegisteredForm" type="insert"}}
+            {{> quickForm collection=registered id="insertRegisteredForm" type="insert" buttonContent="register"}}
         </div>
     </div>
 </template>
 
 <template name="accept">
     <p class="flow-text">
-        Congratulation ! You're going to be paired today !<br/>
-        Don't forget to check your email at 12h00 ! ;)
+        Congrats! You’re going to be paired with another
+        member of the betahaus community today! Don’t
+        forget to check your inbox at 12pm ;)
     </p>
 </template>
 
@@ -54,6 +64,6 @@
 
 <template name="unsubscribe">
     <p class="flow-text">
-        As you want, you have been remove of our list. :'(
+        As you want, you have been removed of the list. :'(
     </p>
 </template>

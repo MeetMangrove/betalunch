@@ -24,7 +24,7 @@ let askForMatching = Meteor.bindEnvironment(() => {
         Email.send({
             to: register.email,
             from: email,
-            subject: 'Do you want a pairing today ?',
+            subject: 'Down for a betalunch today?',
             html: askForMatchingHTML(register)
         });
     });
@@ -49,10 +49,15 @@ let matchingMail = Meteor.bindEnvironment(() => {
         pull(listToPaired, oddPeople);
     }
     for (let i = 0; i < length / 2; i++) {
-        const peopleOne = Random.choice(listToPaired);
+        let peopleOne, peopleTwo;
+        do {
+            peopleOne = Random.choice(listToPaired);
+            peopleTwo = Random.choice(listToPaired);
+        } while (peopleOne.lastPairing === peopleTwo._id || peopleTwo.lastPairing === peopleOne._id);
         pull(listToPaired, peopleOne);
-        const peopleTwo = Random.choice(listToPaired);
         pull(listToPaired, peopleTwo);
+        Registered.update({_id: peopleOne._id}, {$set: {lastPairing: peopleTwo._id}});
+        Registered.update({_id: peopleTwo._id}, {$set: {lastPairing: peopleOne._id}});
         if (i + 1 === length && oddPeople) {
             Email.send({
                 to: [peopleOne.email, peopleTwo.email, oddPeople.email],

@@ -45,7 +45,7 @@ const Schema = new SimpleSchema({
         optional: false,
         autoform: {
             type: 'tel',
-            label: 'Mobile Phone'
+            label: 'Phone number'
         }
     },
     isPairedToday: { // Boolean to know if this person accepted to be paired today.
@@ -94,7 +94,7 @@ const Schema = new SimpleSchema({
         allowedValues: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
         autoform: {
             type: "select",
-            label: 'Days of the week',
+            label: 'When do you want to participate?',
             afFieldInput: {
                 multiple: true,
                 firstOption: false,
@@ -102,6 +102,19 @@ const Schema = new SimpleSchema({
             }
         },
         optional: false
+    },
+    lastPairing: {
+        type: String,
+        optional: false,
+        autoform: {
+            afFieldInput: {
+                type: "hidden",
+                label: false
+            },
+            afFormGroup: {
+                label: false
+            }
+        }
     }
 });
 

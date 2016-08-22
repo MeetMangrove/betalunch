@@ -19,10 +19,27 @@ html {
 }
 
 body {
-    padding: 50px 0;
+    padding-top: 50px;
     min-height: 100%;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.6);
+}
+
+.backToBeta {
+    top: 0;
+    left: 0;
+    position: absolute;
+    margin: 15px;
+}
+
+.backToBeta a {
+    color: white;
+    font-family: 'museo_sans', sans-serif;
+}
+
+.mangroveLogo img{
+    float: right;
+    margin: 15px;
 }
 
 h1 {
@@ -34,11 +51,11 @@ h1, p {
     font-family: 'museo_sans', sans-serif;
 }
 
-form#insertRegisteredForm .row:nth-child(4), form#insertRegisteredForm  .row:nth-child(5){
+form#insertRegisteredForm .row:nth-child(4), form#insertRegisteredForm  .row:nth-child(5), form#insertRegisteredForm  .row:nth-child(8){
     display: none;
 }
 
-form#updatePairingDays .row:nth-child(3), form#updatePairingDays .row:nth-child(4){
+form#updatePairingDays .row:nth-child(3), form#updatePairingDays .row:nth-child(4), form#updatePairingDays .row:nth-child(7){
     display: none;
 }
 
@@ -53,6 +70,11 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
 
 .dropdown-content li > a, .dropdown-content li > span{
     color: #ea5d34;
+}
+
+[type="checkbox"]:checked + label:before{
+    border-right: 2px solid #ea5d34;
+    border-bottom: 2px solid #ea5d34;
 }
 
 input:not([type]):focus:not([readonly]) + label, input[type=text]:focus:not([readonly]) + label, input[type=password]:focus:not([readonly]) + label, input[type=email]:focus:not([readonly]) + label, input[type=url]:focus:not([readonly]) + label, input[type=time]:focus:not([readonly]) + label, input[type=date]:focus:not([readonly]) + label, input[type=datetime]:focus:not([readonly]) + label, input[type=datetime-local]:focus:not([readonly]) + label, input[type=tel]:focus:not([readonly]) + label, input[type=number]:focus:not([readonly]) + label, input[type=search]:focus:not([readonly]) + label, textarea.materialize-textarea:focus:not([readonly]) + label{

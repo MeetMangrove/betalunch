@@ -17,8 +17,8 @@ export let askForMatchingHTML = (register) => {
                             <mj-column>
                               <mj-image width="150" border-radius="50%"src="${url}${Files.findOne({_id: register.picture}).url()}" />           
                                 <mj-text align="center" font-size="24px">
-                                    Good morning ${register.name} !<br/>  
-                                    Do you want to be paired today ?
+                                    Good morning ${register.name}!<br/>  
+                                    Do you want to have lunch with another betahaus member today?
                                 </mj-text>
                             </mj-column>
                         </mj-section>
@@ -31,7 +31,7 @@ export let askForMatchingHTML = (register) => {
                                        color="white"
                                        inner-padding="20px"
                                        href="${url}/accept/${register._id}">
-                                          Yes
+                                          Hell yes!
                                     </mj-button>
                                 </mj-column>
                                 <mj-column>
@@ -41,7 +41,7 @@ export let askForMatchingHTML = (register) => {
                                        color="white"
                                        inner-padding="20px"                                                 
                                        href="${url}/reject/${register._id}">
-                                          No
+                                           Not this time
                                     </mj-button>
                                 </mj-column>
                             </mj-group>
@@ -56,7 +56,7 @@ export let askForMatchingHTML = (register) => {
                                        padding-bottom="15px"
                                        color="white"
                                        href="${url}/reject_week/${register._id}">
-                                          I don't want a pairing this week.
+                                          I’m not available this week.
                                         </mj-button>
                                  <mj-spacer height="15px" />
                                      <mj-button 
@@ -64,7 +64,7 @@ export let askForMatchingHTML = (register) => {
                                        background-color="#039be5" 
                                        inner-padding="15px"
                                        href="${url}/change_pairing_days/${register._id}">
-                                          I want to change my pairing days.
+                                          I want to change my betalunch days.
                                      </mj-button>
                                  <mj-spacer height="15px" />
                                      <mj-button 
@@ -91,7 +91,8 @@ export let matchingMailHTML1 = (peopleOne, peopleTwo) => {
                                     <mj-section>
                                         <mj-column>
                                             <mj-text font-size="24px" align="center">
-                                                Congratulations, you are paired !
+                                                Meet your betalunch buddy!<br/>
+                                                Get in touch with each other to meet for lunch:
                                             </mj-text>
                                         </mj-column>
                                       </mj-section>
