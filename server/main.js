@@ -20,7 +20,14 @@ let initialisation = Meteor.bindEnvironment(() => {
 });
 
 let askForMatching = Meteor.bindEnvironment(() => {
-    Registered.find({}).fetch().forEach((register) => {
+    const today = week[moment().day() - 1];
+    Registered.find({
+        isPairedWeek: true,
+        week: {
+            $elemMatch: {
+                $eq: today
+            }
+        }}).fetch().forEach((register) => {
         Email.send({
             to: register.email,
             from: email,
