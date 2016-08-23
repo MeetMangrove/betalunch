@@ -55,7 +55,7 @@ export let askForMatchingHTML = (register) => {
                   <mj-section>
                     <mj-column>
                       <mj-social mode="horizontal" display="facebook twitter" facebook-content="betahaus" twitter-content="@betahaus" facebook-href="https://www.facebook.com/betahaus" twitter-href="https://twitter.com/betahaus" />
-                      <mj-image width="80" src="${url}/logo_color.png" />
+                      <mj-image width="80" src="${url}/logo_color.png" href="http://www.meetmangrove.com/"/>
                     </mj-column>
                   </mj-section>
                 </mj-container>
@@ -100,7 +100,7 @@ export let matchingMailHTML1 = (peopleOne, peopleTwo) => {
                               <mj-section>
                                 <mj-column>
                                   <mj-social mode="horizontal" display="facebook twitter" facebook-content="betahaus" twitter-content="@betahaus" facebook-href="https://www.facebook.com/betahaus" twitter-href="https://twitter.com/betahaus" />
-                                  <mj-image width="80" src="${url}/logo_color.png" />
+                                  <mj-image width="80" src="${url}/logo_color.png" href="http://www.meetmangrove.com/"/>
                                 </mj-column>
                               </mj-section>
                             </mj-container>
@@ -154,7 +154,7 @@ export let matchingMailHTML2 = (peopleOne, peopleTwo, oddPeople) => {
                               <mj-section>
                                 <mj-column>
                                   <mj-social mode="horizontal" display="facebook twitter" facebook-content="betahaus" twitter-content="@betahaus" facebook-href="https://www.facebook.com/betahaus" twitter-href="https://twitter.com/betahaus" />
-                                  <mj-image width="80" src="${url}/logo_color.png" />
+                                  <mj-image width="80" src="${url}/logo_color.png" href="http://www.meetmangrove.com/"/>
                                 </mj-column>
                               </mj-section>
                             </mj-container>
