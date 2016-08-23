@@ -50,10 +50,15 @@ let matchingMail = Meteor.bindEnvironment(() => {
     }
     for (let i = 0; i < length / 2; i++) {
         let peopleOne, peopleTwo;
+        console.log(listToPaired);
         do {
             peopleOne = Random.choice(listToPaired);
             peopleTwo = Random.choice(listToPaired);
-        } while (peopleOne.lastPairing === peopleTwo._id || peopleTwo.lastPairing === peopleOne._id);
+        } while (peopleOne.lastPairing === peopleTwo._id
+            || peopleTwo.lastPairing === peopleOne._id
+            || peopleOne._id === peopleTwo._id);
+        console.log(peopleOne.name);
+        console.log(peopleTwo.name);
         pull(listToPaired, peopleOne);
         pull(listToPaired, peopleTwo);
         Registered.update({_id: peopleOne._id}, {$set: {lastPairing: peopleTwo._id}});
@@ -92,7 +97,7 @@ const jobAskForMatching = new cron.CronJob({
 });
 
 const jobMatchingMail = new cron.CronJob({
-    cronTime: '00 00 12 * * 1-5',
+    cronTime: '00 40 12 * * 1-5',
     onTick: matchingMail,
     start: false,
     timeZone: timeZone

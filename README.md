@@ -12,6 +12,7 @@ A web app to pairing people randomly with their email adress.
 # Required environment variables
 
 - `MAIL_URL`: URL of your SMTP server (for sending emails), including credentials
+    -> See https://sendgrid.com/ for the creation of your STMP URL
 
 # Deployement on Scalingo
 

@@ -105,7 +105,7 @@ const Schema = new SimpleSchema({
     },
     lastPairing: {
         type: String,
-        optional: false,
+        optional: true,
         autoform: {
             afFieldInput: {
                 type: "hidden",

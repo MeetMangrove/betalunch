@@ -12,7 +12,7 @@
 }
 
 html {
-    background: url('http://d2tjgupm4m2jnv.cloudfront.net/wp/assets/sites/2/Betahaus-HR-Caf%C3%A9-3-Danique-van-Kesteren.jpg') no-repeat center center;
+    background: url('/background.jpg') no-repeat center center;
     background-size: cover;
     min-height: 100%;
     display: flex;
