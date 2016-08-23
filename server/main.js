@@ -48,6 +48,8 @@ let matchingMail = Meteor.bindEnvironment(() => {
         oddPeople = Random.choice(listToPaired);
         pull(listToPaired, oddPeople);
     }
+    console.log(length);
+    console.log(oddPeople);
     for (let i = 0; i < length / 2; i++) {
         let peopleOne, peopleTwo;
         console.log(listToPaired);
