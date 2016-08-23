@@ -62,14 +62,14 @@ let matchingMail = Meteor.bindEnvironment(() => {
             Email.send({
                 to: [peopleOne.email, peopleTwo.email, oddPeople.email],
                 from: email,
-                subject: 'You are paired !',
+                subject: 'Meet your betalunch buddy! ',
                 html: matchingMailHTML2(peopleOne, peopleTwo, oddPeople)
             });
         } else {
             Email.send({
                 to: [peopleOne.email, peopleTwo.email],
                 from: email,
-                subject: 'You are paired !',
+                subject: 'Meet your betalunch buddy! ',
                 html: matchingMailHTML1(peopleOne, peopleTwo)
             });
         }

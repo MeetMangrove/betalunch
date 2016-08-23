@@ -75,6 +75,12 @@ Template.change_pairing_days.onCreated(() => {
    this.subscribe = Meteor.subscribe('update_week', FlowRouter.getParam('_id'));
 });
 
+Template.change_pairing_days.onRendered(() => {
+    $('select').material_select('destroy');
+    $("select option").attr("selected", true);
+    $('select').material_select();
+});
+
 Template.change_pairing_days.helpers({
     currentUser(){
         return Registered.findOne({_id: FlowRouter.getParam('_id')});

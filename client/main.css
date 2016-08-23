@@ -19,10 +19,11 @@ html {
 }
 
 body {
-    padding-top: 50px;
     min-height: 100%;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: row;
 }
 
 .backToBeta {
@@ -37,8 +38,13 @@ body {
     font-family: 'museo_sans', sans-serif;
 }
 
+.mangroveLogo {
+    align-self: flex-end;
+    position: absolute;
+    right: 0;
+}
+
 .mangroveLogo img{
-    float: right;
     margin: 15px;
 }
 

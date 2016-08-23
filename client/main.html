@@ -6,11 +6,11 @@
 
 <template name="main">
     <div class="backToBeta">
-        <a href="http://www.betahaus.com/berlin/" class="waves-effect waves-teal btn-flat">
+        <a href="http://www.betahaus.com/berlin/" class="waves-effect waves-light btn-flat">
             <i class="small material-icons left">chevron_left</i>Back to betahaus
         </a>
     </div>
-    <div class="center-align">
+    <div class="center-align" style="width: 100%; padding: 50px 0 100px;">
         <h1>betalaunch</h1>
         <div class="container">
             <div class="row">
@@ -58,8 +58,12 @@
 </template>
 
 <template name="change_pairing_days">
-    <h5>You can update your account.</h5>
-    {{> quickForm collection=registered id="updatePairingDays" type="update" doc=currentUser omitFields='email'}}
+    <p>You can update your account.</p>
+    <div class="col s12 offset-l2 l8">
+        <div class="card-panel white">
+            {{> quickForm collection=registered id="updatePairingDays" type="update" doc=currentUser omitFields='email' buttonContent="update"}}
+        </div>
+    </div>
 </template>
 
 <template name="unsubscribe">

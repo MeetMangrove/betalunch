@@ -77,6 +77,18 @@ export let askForMatchingHTML = (register) => {
                                      </mj-button>                                     
                             </mj-group>
                         </mj-section>
+                         <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey" />
+                        <mj-section>
+                            <mj-column>
+                              <mj-social
+                                mode="horizontal"
+                                display="facebook twitter"
+                                facebook-content="betahaus"
+                                twitter-content="@betahaus"
+                                facebook-href="https://www.facebook.com/betahaus"
+                                twitter-href="https://twitter.com/betahaus" />
+                            </mj-column>
+                          </mj-section>
                     </mj-container>
                 </mj-body>
             </mjml>
@@ -91,8 +103,7 @@ export let matchingMailHTML1 = (peopleOne, peopleTwo) => {
                                     <mj-section>
                                         <mj-column>
                                             <mj-text font-size="24px" align="center">
-                                                Meet your betalunch buddy!<br/>
-                                                Get in touch with each other to meet for lunch:
+                                                  Get in touch with each other to meet for lunch:
                                             </mj-text>
                                         </mj-column>
                                       </mj-section>
@@ -118,6 +129,18 @@ export let matchingMailHTML1 = (peopleOne, peopleTwo) => {
                                             </mj-text>
                                         </mj-column>
                                     </mj-section>
+                                     <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey" />
+                                    <mj-section>
+                                        <mj-column>
+                                          <mj-social
+                                            mode="horizontal"
+                                            display="facebook twitter"
+                                            facebook-content="betahaus"
+                                            twitter-content="@betahaus"
+                                            facebook-href="https://www.facebook.com/betahaus"
+                                            twitter-href="https://twitter.com/betahaus" />
+                                        </mj-column>
+                                      </mj-section>
                                 </mj-container>
                             </mj-body>
                         </mjml>
@@ -132,7 +155,7 @@ export let matchingMailHTML2 = (peopleOne, peopleTwo, oddPeople) => {
                                     <mj-section>
                                         <mj-column>
                                             <mj-text font-size="24px" align="center">
-                                                Congratulations, you are paired !
+                                                Get in touch with each other to meet for lunch:
                                             </mj-text>
                                         </mj-column>
                                       </mj-section>
@@ -168,6 +191,18 @@ export let matchingMailHTML2 = (peopleOne, peopleTwo, oddPeople) => {
                                             </mj-text>
                                         </mj-column>
                                     </mj-section>
+                                     <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey" />
+                                    <mj-section>
+                                        <mj-column>
+                                          <mj-social
+                                            mode="horizontal"
+                                            display="facebook twitter"
+                                            facebook-content="betahaus"
+                                            twitter-content="@betahaus"
+                                            facebook-href="https://www.facebook.com/betahaus"
+                                            twitter-href="https://twitter.com/betahaus" />
+                                        </mj-column>
+                                      </mj-section>
                                 </mj-container>
                             </mj-body>
                         </mjml>
