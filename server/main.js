@@ -13,7 +13,7 @@ const email = Meteor.settings.email;
 
 let initialisation = Meteor.bindEnvironment(() => {
     Registered.update({}, {$set: {isPairedToday: false}}, {multi: true});
-    if (moment().tz(timeZone).day() === 3) {
+    if (moment().tz(timeZone).day() === 1) {
         Registered.update({}, {$set: {isPairedWeek: true}}, {multi: true});
     }
     console.log('Initialisation CRONJOB run');
