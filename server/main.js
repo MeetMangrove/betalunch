@@ -12,9 +12,9 @@ const timeZone = Meteor.settings.timeZone;
 const email = Meteor.settings.email;
 
 let initialisation = Meteor.bindEnvironment(() => {
-    Registered.update({}, {$set: {isPairedToday: false}});
-    if (moment().tz(timeZone).day() === 1) {
-        Registered.update({}, {$set: {isPairedWeek: true}});
+    Registered.update({}, {$set: {isPairedToday: false}}, {multi: true});
+    if (moment().tz(timeZone).day() === 3) {
+        Registered.update({}, {$set: {isPairedWeek: true}}, {multi: true});
     }
     console.log('Initialisation CRONJOB run');
 });
@@ -87,7 +87,7 @@ let matchingMail = Meteor.bindEnvironment(() => {
 });
 
 const jobInitialisation = new cron.CronJob({
-    cronTime: '00 00 0 * * 1-5',
+    cronTime: '00 00 13 * * 1-5',
     onTick: initialisation,
     start: false,
     timeZone: timeZone
