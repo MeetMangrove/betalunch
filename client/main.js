@@ -12,8 +12,9 @@ AutoForm.hooks({
     insertRegisteredForm: {
         before: {
             insert(doc) {
-                if($('[data-schema-key="picture"]')[0].files[0].size >= 1000000){
-                    alert('Your profile picture is too big, you need to have one smaller than 1M.')
+                const file = $('[data-schema-key="picture"]')[0].files[0];
+                if(file && file.size >= 1000000){
+                    alert('Your profile picture is too big, you need to have one smaller than 1M.');
                 }
                 Meteor.call('exist', doc, (err, res) => {
                     if(err){

@@ -93,12 +93,12 @@ const Schema = new SimpleSchema({
         defaultValue: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
         allowedValues: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
         autoform: {
+            type: "select",
+            label: 'When do you want to participate?',
             afFieldInput: {
-                type: "hidden",
-                label: false
-            },
-            afFormGroup: {
-                label: false
+                multiple: true,
+                firstOption: false,
+                options:'allowed'
             }
         },
         optional: false
