@@ -57,7 +57,7 @@ h1, p {
     font-family: 'museo_sans', sans-serif;
 }
 
-form#insertRegisteredForm .row:nth-child(4), form#insertRegisteredForm  .row:nth-child(5), form#insertRegisteredForm  .row:nth-child(8){
+form#insertRegisteredForm .row:nth-child(4), form#insertRegisteredForm  .row:nth-child(5), form#insertRegisteredForm  .row:nth-child(7), form#insertRegisteredForm  .row:nth-child(8){
     display: none;
 }
 

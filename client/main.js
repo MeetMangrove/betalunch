@@ -32,7 +32,7 @@ AutoForm.hooks({
                     console.log(err);
                     alert(err);
                 }else{
-                    alert('You are registered !')
+                    alert('You are registered ! You’ll receive your first invitation for a betalunch tomorrow morning at 9am!')
                 }
             }
         }
@@ -50,12 +50,6 @@ AutoForm.hooks({
         }
     }
 }, true);
-
-Template.form.onRendered(() => {
-    $('select').material_select('destroy');
-    $("select option").attr("selected", true);
-    $('select').material_select();
-});
 
 Template.form.helpers({
   registered() {
