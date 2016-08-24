@@ -87,7 +87,7 @@ let matchingMail = Meteor.bindEnvironment(() => {
 });
 
 const jobInitialisation = new cron.CronJob({
-    cronTime: '00 00 13 * * 1-5',
+    cronTime: '00 00 0 * * 1-5',
     onTick: initialisation,
     start: false,
     timeZone: timeZone
