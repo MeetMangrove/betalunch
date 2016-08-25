@@ -57,13 +57,26 @@ h1, p {
     font-family: 'museo_sans', sans-serif;
 }
 
-form#insertRegisteredForm .row:nth-child(4), form#insertRegisteredForm  .row:nth-child(5), form#insertRegisteredForm  .row:nth-child(7), form#insertRegisteredForm  .row:nth-child(8){
-    display: none;
+label {
+    font-family: 'museo_sans', sans-serif;
 }
 
-form#updatePairingDays .row:nth-child(3), form#updatePairingDays .row:nth-child(4), form#updatePairingDays .row:nth-child(7){
+form#insertRegisteredForm  .row:nth-child(4),
+form#insertRegisteredForm  .row:nth-child(5),
+form#insertRegisteredForm  .row:nth-child(7),
+form#insertRegisteredForm  .row:nth-child(8),
+form#insertRegisteredForm  .row:nth-child(9),
+form#insertRegisteredForm  .row:nth-child(10),
+form#insertRegisteredForm  .row:nth-child(11),
+form#insertRegisteredForm  .row:nth-child(12){
     display: none;
 }
+/*
+form#updatePairingDays .row:nth-child(3),
+form#updatePairingDays .row:nth-child(4),
+form#updatePairingDays .row:nth-child(11){
+    display: none;
+}*/
 
 form .btn, form .btn:hover {
     background-color: #ea5d34;

@@ -32,7 +32,13 @@
         never eat alone anymore ;) </p>
     <div class="col s12 offset-l2 l8">
         <div class="card-panel white">
-            {{> quickForm collection=registered id="insertRegisteredForm" type="insert" buttonContent="register"}}
+            {{# autoForm collection=registered id="insertRegisteredForm" type="insert" }}
+                {{> afQuickField name='name'}}
+                {{> afQuickField name='email'}}
+                {{> afQuickField name='number'}}
+                {{> afQuickField name='picture'}}
+                <button type="submit" class="btn btn-primary">Register</button>
+            {{/ autoForm}}
         </div>
     </div>
 </template>
@@ -61,7 +67,22 @@
     <p>You can update your account.</p>
     <div class="col s12 offset-l2 l8">
         <div class="card-panel white">
-            {{> quickForm collection=registered id="updatePairingDays" type="update" doc=currentUser omitFields='email' buttonContent="update"}}
+            <div class="center-align">
+                <div style="background: url('{{image}}') no-repeat center; background-size: cover; height: 100px; width: 100px; display: inline-block"></div>
+            </div>
+            {{# autoForm collection=registered id="updatePairingDays" type="update" doc=currentUser omitFields='email' buttonContent="update"}}
+                {{> afQuickField name='name'}}
+                {{> afQuickField name='email'}}
+                {{> afQuickField name='number'}}
+                {{> afQuickField name='picture'}}
+                <label>When do you want to participate?</label>
+                {{> afQuickField name='onMonday'}}
+                {{> afQuickField name='onTuesday'}}
+                {{> afQuickField name='onWednesday'}}
+                {{> afQuickField name='onThursday'}}
+                {{> afQuickField name='onFriday'}}
+                <button type="submit" class="btn btn-primary">Update</button>
+            {{/ autoForm }}
         </div>
     </div>
 </template>

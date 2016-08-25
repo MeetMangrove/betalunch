@@ -3,8 +3,14 @@
  */
 
 import { Meteor } from 'meteor/meteor';
-import { Registered } from '../both/collections';
+import { Registered, Files } from '../both/collections';
 
-Meteor.publish('update_week', (id) => {
+Meteor.publish('update', (id) => {
    return Registered.find({_id: id});
+});
+
+Meteor.publish('image', (id) => {
+   console.log(Registered.find({_id: id}).fetch()[0].picture);
+   console.log(Files.find({_id: Registered.find({_id: id}).fetch()[0].picture }).fetch());
+   return Files.find({_id: Registered.find({_id: id}).fetch()[0].picture });
 });

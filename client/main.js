@@ -4,7 +4,7 @@ import { AutoForm } from 'meteor/aldeed:autoform';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 
-import { Registered } from '../both/collections';
+import { Registered, Files } from '../both/collections';
 import './main.html';
 
 AutoForm.setDefaultTemplate('materialize');
@@ -39,8 +39,20 @@ AutoForm.hooks({
         }
     },
     updatePairingDays: {
+        before: {
+            update(doc){
+                const file = $('[data-schema-key="picture"]')[0].files[0];
+                if(file && file.size >= 1000000){
+                    alert('Your profile picture is too big, you need to have one smaller than 1M.');
+                    AutoForm.resetForm('updatePairingDays');
+                }
+                console.log(doc);
+            }
+        },
         after: {
             update(err, res) {
+                console.log(err);
+                console.log(res);
                 if(err){
                     console.log(err);
                     alert(err);
@@ -53,9 +65,9 @@ AutoForm.hooks({
 }, true);
 
 Template.form.helpers({
-  registered() {
-    return Registered;
-  }
+    registered() {
+        return Registered;
+    }
 });
 
 Template.accept.onCreated(() => {
@@ -67,7 +79,8 @@ Template.reject_week.onCreated(() => {
 });
 
 Template.change_pairing_days.onCreated(() => {
-   this.subscribe = Meteor.subscribe('update_week', FlowRouter.getParam('_id'));
+    this.subsProfile = Meteor.subscribe('update', FlowRouter.getParam('_id'));
+    this.subsImage = Meteor.subscribe('image', FlowRouter.getParam('_id'));
 });
 
 Template.change_pairing_days.onRendered(() => {
@@ -82,6 +95,11 @@ Template.change_pairing_days.helpers({
     },
     registered() {
         return Registered;
+    },
+    image(){
+        const imageId = Registered.findOne({_id: FlowRouter.getParam('_id')});
+        const imageUrl = imageId && imageId.picture ? Files.findOne({_id: imageId.picture }) : null;
+        return imageUrl && imageUrl.url() ? imageUrl.url() : null;
     }
 });
 
