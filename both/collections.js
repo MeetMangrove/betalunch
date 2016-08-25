@@ -12,18 +12,12 @@ const Files = new FS.Collection("files", {
 
 Files.allow({
     insert(user, doc) {
-        console.log(user, doc);
-        console.log(doc.size());
       return doc.size() < 1000000; // An alert is display if result is false
     },
     update(user, doc) {
-        console.log(user, doc);
-        console.log(doc.size());
         return doc.size() < 1000000;
     },
-    download(user, doc) {
-        console.log(user, doc);
-        console.log(doc.size());
+    download() {
         return true;
     },
     fetch: null
@@ -93,44 +87,17 @@ const Schema = new SimpleSchema({
     },
     lastPairing: {
         type: String,
-        optional: true,
-        autoform: {
-            afFieldInput: {
-                type: "hidden",
-                label: false
-            },
-            afFormGroup: {
-                label: false
-            }
-        }
+        optional: true
     },
     isPairedToday: { // Boolean to know if this person accepted to be paired today.
         type: Boolean,
         defaultValue: false,
-        optional: true,
-        autoform: {
-            afFieldInput: {
-                type: "hidden",
-                label: false
-            },
-            afFormGroup: {
-                label: false
-            }
-        }
+        optional: true
     },
     isPairedWeek: { // Boolean to know if this person accepted to be paired this week.
         type: Boolean,
         defaultValue: true,
-        optional: true,
-        autoform: {
-            afFieldInput: {
-                type: "hidden",
-                label: false
-            },
-            afFormGroup: {
-                label: false
-            }
-        }
+        optional: true
     }
 });
 

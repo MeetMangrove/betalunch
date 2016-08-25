@@ -68,9 +68,9 @@
     <div class="col s12 offset-l2 l8">
         <div class="card-panel white">
             <div class="center-align">
-                <div style="background: url('{{image}}') no-repeat center; background-size: cover; height: 100px; width: 100px; display: inline-block"></div>
+                <div style="background: url('{{image}}') no-repeat center; background-size: cover; height: 100px; width: 100px; display: inline-block; border-radius: 50%"></div>
             </div>
-            {{# autoForm collection=registered id="updatePairingDays" type="update" doc=currentUser omitFields='email' buttonContent="update"}}
+            {{# autoForm collection=registered id="updatePairingDays" type="update" doc=currentUser}}
                 {{> afQuickField name='name'}}
                 {{> afQuickField name='email'}}
                 {{> afQuickField name='number'}}
@@ -81,7 +81,7 @@
                 {{> afQuickField name='onWednesday'}}
                 {{> afQuickField name='onThursday'}}
                 {{> afQuickField name='onFriday'}}
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn waves-effect waves-light">Update</button>
             {{/ autoForm }}
         </div>
     </div>

@@ -28,7 +28,7 @@ AutoForm.hooks({
             }
         },
         after: {
-            insert(err, res) {
+            insert(err) {
                 if(err){
                     console.log(err);
                     alert(err);
@@ -44,20 +44,18 @@ AutoForm.hooks({
                 const file = $('[data-schema-key="picture"]')[0].files[0];
                 if(file && file.size >= 1000000){
                     alert('Your profile picture is too big, you need to have one smaller than 1M.');
-                    AutoForm.resetForm('updatePairingDays');
                 }
-                console.log(doc);
+                return doc;
             }
         },
         after: {
-            update(err, res) {
-                console.log(err);
-                console.log(res);
+            update(err) {
                 if(err){
                     console.log(err);
                     alert(err);
                 }else{
-                    alert('Your account have been updated !')
+                    alert('Your account have been updated !');
+                    location.reload(); //Reload the page to load the image
                 }
             }
         }
@@ -83,12 +81,6 @@ Template.change_pairing_days.onCreated(() => {
     this.subsImage = Meteor.subscribe('image', FlowRouter.getParam('_id'));
 });
 
-Template.change_pairing_days.onRendered(() => {
-    $('select').material_select('destroy');
-    $("select option").attr("selected", true);
-    $('select').material_select();
-});
-
 Template.change_pairing_days.helpers({
     currentUser(){
         return Registered.findOne({_id: FlowRouter.getParam('_id')});
@@ -97,9 +89,8 @@ Template.change_pairing_days.helpers({
         return Registered;
     },
     image(){
-        const imageId = Registered.findOne({_id: FlowRouter.getParam('_id')});
-        const imageUrl = imageId && imageId.picture ? Files.findOne({_id: imageId.picture }) : null;
-        return imageUrl && imageUrl.url() ? imageUrl.url() : null;
+        const data = Registered.findOne({_id: FlowRouter.getParam('_id')});
+        return data ? data.picture : null;
     }
 });
 
