@@ -34,7 +34,7 @@ AutoForm.hooks({
                     console.log(err);
                     alert(err);
                 }else{
-                    alert('You are registered ! You’ll receive your first invitation for a betalunch tomorrow morning at 9am!')
+                    alert('You are registered! You’ll receive your first invitation for a betalunch tomorrow morning at 9am!')
                 }
             }
         }
@@ -55,7 +55,7 @@ AutoForm.hooks({
                     console.log(err);
                     alert(err);
                 }else{
-                    alert('Your account have been updated !');
+                    alert('Your account have been updated!');
                 }
             }
         }
