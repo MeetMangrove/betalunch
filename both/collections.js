@@ -85,7 +85,7 @@ const Schema = new SimpleSchema({
         defaultValue: true,
         optional: false
     },
-    lastPairing: {
+    lastPairing: { // ID of the last person with whom we have paired.
         type: String,
         optional: true
     },
