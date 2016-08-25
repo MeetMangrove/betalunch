@@ -7,7 +7,7 @@ import cron from 'cron';
 import { Registered } from '../both/collections';
 import { askForMatchingHTML, matchingMailHTML1, matchingMailHTML2 } from './mail';
 
-const week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+const week = ['onMonday', 'onTuesday', 'onWednesday', 'onThursday', 'onFriday'];
 const timeZone = Meteor.settings.timeZone;
 const email = Meteor.settings.email;
 
@@ -21,13 +21,9 @@ let initialisation = Meteor.bindEnvironment(() => {
 
 let askForMatching = Meteor.bindEnvironment(() => {
     const today = week[moment().day() - 1];
-    Registered.find({
-        isPairedWeek: true,
-        week: {
-            $elemMatch: {
-                $eq: today
-            }
-        }}).fetch().forEach((register) => {
+    let selector = { isPairedWeek: true };
+    selector[today] = true;
+    Registered.find(selector).fetch().forEach((register) => {
         Email.send({
             to: register.email,
             from: email,
@@ -40,48 +36,51 @@ let askForMatching = Meteor.bindEnvironment(() => {
 
 let matchingMail = Meteor.bindEnvironment(() => {
     const today = week[moment().day() - 1];
-    let listToPaired = Registered.find({
-        isPairedToday: true,
-        isPairedWeek: true,
-        week: {
-            $elemMatch: {
-                $eq: today
-            }
-        }
-    }).fetch();
+    let selector = { isPairedToday: true, isPairedWeek: true };
+    selector[today] = true;
+    let listToPaired = Registered.find(selector).fetch();
     const length = listToPaired.length;
     let oddPeople = null; // The one who gonna be paired with two person if needed
     if (length % 2 === 1) {
         oddPeople = Random.choice(listToPaired);
         pull(listToPaired, oddPeople);
     }
-    for (let i = 0; i < length / 2; i++) {
-        let peopleOne, peopleTwo;
-        do {
-            peopleOne = Random.choice(listToPaired);
-            peopleTwo = Random.choice(listToPaired);
-        } while (peopleOne.lastPairing === peopleTwo._id
+    if(length >= 2){
+        for (let i = 0; i < length / 2; i++) {
+            let peopleOne, peopleTwo;
+            do {
+                peopleOne = Random.choice(listToPaired);
+                peopleTwo = Random.choice(listToPaired);
+            } while (peopleOne.lastPairing === peopleTwo._id
             || peopleTwo.lastPairing === peopleOne._id
             || peopleOne._id === peopleTwo._id);
-        pull(listToPaired, peopleOne);
-        pull(listToPaired, peopleTwo);
-        Registered.update({_id: peopleOne._id}, {$set: {lastPairing: peopleTwo._id}});
-        Registered.update({_id: peopleTwo._id}, {$set: {lastPairing: peopleOne._id}});
-        if (i + 1 === length && oddPeople) {
-            Email.send({
-                to: [peopleOne.email, peopleTwo.email, oddPeople.email],
-                from: email,
-                subject: 'Meet your betalunch buddy! ',
-                html: matchingMailHTML2(peopleOne, peopleTwo, oddPeople)
-            });
-        } else {
-            Email.send({
-                to: [peopleOne.email, peopleTwo.email],
-                from: email,
-                subject: 'Meet your betalunch buddy! ',
-                html: matchingMailHTML1(peopleOne, peopleTwo)
-            });
+            pull(listToPaired, peopleOne);
+            pull(listToPaired, peopleTwo);
+            Registered.update({_id: peopleOne._id}, {$set: {lastPairing: peopleTwo._id}});
+            Registered.update({_id: peopleTwo._id}, {$set: {lastPairing: peopleOne._id}});
+            if (i + 1 === length && oddPeople) {
+                Email.send({
+                    to: [peopleOne.email, peopleTwo.email, oddPeople.email],
+                    from: email,
+                    subject: 'Meet your betalunch buddy! ',
+                    html: matchingMailHTML2(peopleOne, peopleTwo, oddPeople)
+                });
+            } else {
+                Email.send({
+                    to: [peopleOne.email, peopleTwo.email],
+                    from: email,
+                    subject: 'Meet your betalunch buddy! ',
+                    html: matchingMailHTML1(peopleOne, peopleTwo)
+                });
+            }
         }
+    }else if(oddPeople){
+        Email.send({
+            to: [oddPeople.email],
+            from: email,
+            subject: 'Sorry, there is nobody today.',
+            html: `Sorry ${oddPeople.name}, nobody is available for a lunch today. :/`
+        });
     }
     console.log('matchingMail CRONJOB run');
 });
@@ -101,7 +100,7 @@ const jobAskForMatching = new cron.CronJob({
 });
 
 const jobMatchingMail = new cron.CronJob({
-    cronTime: '00 00 12 * * 1-5',
+    cronTime: '00 47 13 * * 1-5',
     onTick: matchingMail,
     start: false,
     timeZone: timeZone

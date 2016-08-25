@@ -5,15 +5,10 @@
 import { Meteor } from 'meteor/meteor';
 import { Registered, Files } from '../both/collections';
 
-Registered.serverTransform({
-   picture: function(doc) {
-      if(doc.picture && doc.picture.indexOf('/') === -1){
-         return Files.find({_id: doc.picture}).fetch()[0].url(); // Not always update at time, need to reload the page to see result
-      }
-      return doc.picture;
-   }
+Meteor.publish('update', (id) => {
+   return Registered.find({_id: id});
 });
 
-Meteor.publishTransformed('update', (id) => {
-   return Registered.find({_id: id});
+Meteor.publish('image', (id) => {
+   return Files.find({_id: id});
 });

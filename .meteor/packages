@@ -32,4 +32,3 @@ shell-server@0.2.1
 kadira:flow-router
 kadira:blaze-layout
 random@1.0.10
-maximum:server-transform

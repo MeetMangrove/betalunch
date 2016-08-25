@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { Tracker } from 'meteor/tracker';
 import { Template } from 'meteor/templating';
 import { AutoForm } from 'meteor/aldeed:autoform';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
@@ -55,7 +56,6 @@ AutoForm.hooks({
                     alert(err);
                 }else{
                     alert('Your account have been updated !');
-                    location.reload(); //Reload the page to load the image
                 }
             }
         }
@@ -78,7 +78,12 @@ Template.reject_week.onCreated(() => {
 
 Template.change_pairing_days.onCreated(() => {
     this.subsProfile = Meteor.subscribe('update', FlowRouter.getParam('_id'));
-    this.subsImage = Meteor.subscribe('image', FlowRouter.getParam('_id'));
+    this.autorun = Tracker.autorun(function() {
+        const user = Registered.findOne({_id: FlowRouter.getParam('_id')});
+        if(user && user.picture){
+            this.subsImage = Meteor.subscribe('image', user.picture);
+        }
+    });
 });
 
 Template.change_pairing_days.helpers({
@@ -89,8 +94,9 @@ Template.change_pairing_days.helpers({
         return Registered;
     },
     image(){
-        const data = Registered.findOne({_id: FlowRouter.getParam('_id')});
-        return data ? data.picture : null;
+        const user = Registered.findOne({_id: FlowRouter.getParam('_id')});
+        const image = user && user.picture ? Files.findOne({_id: user.picture}) : null;
+        return image && image.url() ? image.url() : null;
     }
 });
 
