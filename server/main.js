@@ -100,7 +100,7 @@ const jobAskForMatching = new cron.CronJob({
 });
 
 const jobMatchingMail = new cron.CronJob({
-    cronTime: '00 00 12 * * 1-5',
+    cronTime: '00 20 14 * * 1-5',
     onTick: matchingMail,
     start: false,
     timeZone: timeZone
