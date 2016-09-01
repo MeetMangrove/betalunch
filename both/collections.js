@@ -41,7 +41,7 @@ const Schema = new SimpleSchema({
     },
     number: {
         type: String,
-        max: 12,
+        max: 18,
         optional: false,
         autoform: {
             type: 'tel',
