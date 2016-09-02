@@ -8,6 +8,48 @@ import { Files } from '../both/collections';
 
 const url = Meteor.settings.url;
 
+export let welcomeMail = (register) => {
+    return mjml2html(`
+            <mjml>
+              <mj-body>
+                <mj-container>
+                  <mj-section>
+                    <mj-column>
+                      <mj-image width="150" border-radius="50%" src="${url}${Files.findOne({_id: register.picture}).url()}" />
+                      <mj-text align="center" font-size="24px">
+                        Welcome ${register.name}, you are registered!<br/>  You’ll receive your first invitation for a betalunch tomorrow morning at 9am!
+                      </mj-text>
+                    </mj-column>
+                  </mj-section>
+                  <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey" />
+                  <mj-section>
+                    <mj-group>
+                      <mj-button font-family="Helvetica" background-color="#039be5" inner-padding="15px" padding-bottom="15px" color="white" href="${url}/reject_week/${register._id}">
+                        I’m not available this week.
+                      </mj-button>
+                      <mj-spacer height="15px" />
+                      <mj-button font-family="Helvetica" background-color="#039be5" inner-padding="15px" href="${url}/change_pairing_days/${register._id}">
+                        I want to change my betalunch days.
+                      </mj-button>
+                      <mj-spacer height="15px" />
+                      <mj-button font-family="Helvetica" background-color="#039be5" inner-padding="15px" color="white" href="${url}/unsubscribe/${register._id}">
+                        I want to be unsubscribed.
+                      </mj-button>
+                    </mj-group>
+                  </mj-section>
+                  <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey" />
+                  <mj-section>
+                    <mj-column>
+                      <mj-social mode="horizontal" display="facebook twitter" facebook-content="betahaus" twitter-content="@betahaus" facebook-href="https://www.facebook.com/betahaus" twitter-href="https://twitter.com/betahaus" />
+                      <mj-image width="80" src="${url}/logo_color.png" href="http://www.meetmangrove.com/"/>
+                    </mj-column>
+                  </mj-section>
+                </mj-container>
+              </mj-body>
+            </mjml>
+                 `);
+};
+
 export let askForMatchingHTML = (register) => {
     return mjml2html(`
             <mjml>

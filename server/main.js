@@ -5,11 +5,20 @@ import { Random } from 'meteor/random';
 import pull from 'lodash/pull';
 import cron from 'cron';
 import { Registered } from '../both/collections';
-import { askForMatchingHTML, matchingMailHTML1, matchingMailHTML2 } from './mail';
+import { askForMatchingHTML, matchingMailHTML1, matchingMailHTML2, welcomeMail } from './mail';
 
 const week = ['onMonday', 'onTuesday', 'onWednesday', 'onThursday', 'onFriday'];
 const timeZone = Meteor.settings.timeZone;
 const email = Meteor.settings.email;
+
+let sendWelcomeMail = (doc) => {
+    Email.send({
+        to: doc.email,
+        from: email,
+        subject: 'Welcome to betalunch!',
+        html: welcomeMail(doc)
+    });
+};
 
 let initialisation = Meteor.bindEnvironment(() => {
     Registered.update({}, {$set: {isPairedToday: false}}, {multi: true});
@@ -112,4 +121,5 @@ Meteor.startup(() => {
     jobMatchingMail.start();
 });
 
+export { sendWelcomeMail };
 
