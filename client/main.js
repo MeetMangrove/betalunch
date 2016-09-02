@@ -29,12 +29,14 @@ AutoForm.hooks({
             }
         },
         after: {
-            insert(err) {
+            insert(err, id) {
                 if(err){
                     console.log(err);
                     alert(err);
                 }else{
-                    alert('You are registered! You’ll receive your first invitation for a betalunch tomorrow morning at 9am!')
+                    Meteor.call('sendWelcomeEmail', id, () => {
+                        alert('You are registered! You’ll receive your first invitation for a betalunch tomorrow morning at 9am!')
+                    });
                 }
             }
         }

@@ -3,7 +3,6 @@
  */
 
 import { Registered, Files } from '../both/collections';
-import { sendWelcomeMail } from '../server/main';
 
 Files.allow({
     insert(user, doc) {
@@ -20,7 +19,6 @@ Files.allow({
 
 Registered.allow({
     insert(user, doc){
-        sendWelcomeMail(doc);
         return true;
     },
     update(){

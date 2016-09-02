@@ -17,7 +17,7 @@ export let welcomeMail = (register) => {
                     <mj-column>
                       <mj-image width="150" border-radius="50%" src="${url}${Files.findOne({_id: register.picture}).url()}" />
                       <mj-text align="center" font-size="24px">
-                        Welcome ${register.name}, you are registered!<br/>  You’ll receive your first invitation for a betalunch tomorrow morning at 9am!
+                        Welcome ${register.name}, you are registered!<br/> You’ll receive your first invitation for a betalunch tomorrow morning at 9am!
                       </mj-text>
                     </mj-column>
                   </mj-section>
